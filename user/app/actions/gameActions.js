@@ -102,9 +102,21 @@ export function nextQuestion () {
 					if (singleLevel.questions[i].questionId == currentQuestionId) {
 
 						nextQuestionId = singleLevel.questions[i+1].questionId;
+						if (i+1 == singleLevel.questions.length-1) {
+
+							dispatch ({
+								type : actionConstants.SET_GAME_STATUS_FLAGS,
+								flags : {
+									isLastQuestionOfLevel : true
+								}
+							});
+
+
+						}
+
 						break;
 					}
-				
+
 
 				}
 				
@@ -123,4 +135,156 @@ export function nextQuestion () {
 		});
 
 	}
+}
+
+
+export function submitCurrentLevelAnswers () {
+
+	return function (dispatch, getState) {
+
+		let store = getState ();
+		let {levels} = store.game;
+		let {currentLevel} = store.game.status.currentLevel;
+
+		let currentLevelObject = null;
+		_.each (levels, (singleLevel) => {
+
+			if (levels.level == currentLevel ) {
+
+				currentLevelObject = singleLevel;
+
+			}
+
+
+		});
+
+
+		let answers = currentLevelObject.questions.map ((singleQuestion) => {
+
+			return {
+
+				"questionId" : singleQuestion.questionId,
+				"optionId" : singleQuestion.chosenOptionId
+
+
+			};
+
+		});
+
+		let payload = {
+
+			answers
+
+		};
+
+		dispatch ({
+			type : actionConstants.SET_GAME_STATUS_FLAGS,
+			flags : {
+				isLevelFetched :false
+			}
+		});
+
+		fetch(urlConstants.submitLevel, {
+
+			method :'POST',
+			headers: {
+				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+			},
+			body: serialize(payload)
+		}).then((response) => {
+			return response.json();
+		}).then((json)=> {
+
+
+
+			if (!json.error) {
+
+
+
+				if (!json.hasQualified) {
+
+					dispatch({
+
+						type: actionConstants.SET_GAME_STATUS_FLAGS,
+						flags : {
+							hasQualified: false,
+							gameComponentScreenType: "MID_LEVEL",
+							previousScore: json.score
+						}
+					});
+
+
+				} else {
+
+					dispatch ({
+
+						type : actionConstants.CLEAR_STATUS_FLAGS,
+
+					});
+					dispatch ({
+
+						type : actionConstants.ADD_NEW_LEVEL,
+						payload : json.next
+					});
+
+					dispatch ({
+						type : actionConstants.SET_GAME_STATUS_FLAGS,
+						flags : {
+
+							hasQualified: true,
+							gameComponentScreenType: "MID_LEVEL",
+							previousScore: json.score,
+							isLevelFetched : true,
+							currentLevel : json.next.level,
+							currentQuestionId : json.next.questions[0].questionId
+						}
+					});
+				}
+
+
+
+			}
+			
+
+		}).catch(() => {
+			
+		});
+
+
+
+
+	};
+}
+
+
+export function clearStatusesFlags () {
+
+	return function (dispatch, getState) {
+
+
+		dispatch ({
+
+			type : actionConstants.CLEAR_STATUS_FLAGS,
+
+		});
+
+
+	};
+}
+
+export function clearLevels () {
+
+	return function (dispatch, getState) {
+
+
+		dispatch ({
+
+			type : actionConstants.CLEAR_LEVELS,
+
+		});
+
+
+	};
+
+
 }

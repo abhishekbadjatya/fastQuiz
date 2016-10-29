@@ -14,6 +14,8 @@ let initialState = () => {
 				'currentLevel' : null,
 				'currentQuestionId' : null,
 				'gameComponentScreenType' : null,
+				'isLastQuestionOfLevel' : false,
+				'hasQualified' : false
 				
 
 			},

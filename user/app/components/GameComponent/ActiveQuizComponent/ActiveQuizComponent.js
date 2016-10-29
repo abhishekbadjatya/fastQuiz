@@ -32,7 +32,6 @@ class ActiveQuizComponent extends React.Component {
 
 		if (activeLevel) {
 
-			console.log(activeLevel);
 			let activeQuestion = null;
 			 _.each (activeLevel.questions, (singleQuestion) => {
 
@@ -45,7 +44,6 @@ class ActiveQuizComponent extends React.Component {
 
 			});
 
-			console.log(activeQuestion);
 			return activeQuestion;
 
 
@@ -76,7 +74,7 @@ class ActiveQuizComponent extends React.Component {
 
 			let {status, levels} =  this.props.game;
 			let activeQuestionProps = this.getQuestionProps (this.props);
-			let {selectedOption, nextQuestion} = this.props.actions;
+			let {selectedOption, nextQuestion, submitCurrentLevelAnswers} = this.props.actions;
 			return (
 			<div>
 				<div className = 'col-xs-12 text-center'>
@@ -85,7 +83,11 @@ class ActiveQuizComponent extends React.Component {
 
 				<div className = 'col-xs-12'>
 
-					<QuestionComponent nextQuestion = {nextQuestion} selectedOption = {selectedOption} {...activeQuestionProps} />
+					<QuestionComponent
+					submitCurrentLevelAnswers = {submitCurrentLevelAnswers}
+					isLastQuestionOfLevel = {status.isLastQuestionOfLevel}
+					nextQuestion = {nextQuestion}
+					selectedOption = {selectedOption} {...activeQuestionProps} />
 
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import GameComponent from '../../components/GameComponent/GameComponent.js';
-import {fetchNewGame, selectedOption, nextQuestion} from '../../actions/gameActions.js';
+import {fetchNewGame, selectedOption, nextQuestion,
+ submitCurrentLevelAnswers, clearStatusesFlags, clearLevels, changeGameComponentScreenType} from '../../actions/gameActions.js';
 
 
 const mapStateToProps = (state) => {
@@ -35,6 +36,22 @@ const mapDispatchToProps = (dispatch) => {
 			nextQuestion : () => {
 
 				dispatch (nextQuestion ());
+			},
+			submitCurrentLevelAnswers : () => {
+
+				dispatch (submitCurrentLevelAnswers());
+			},
+			clearStatusesFlags : () => {
+
+				dispatch (clearStatusesFlags());
+			},
+			clearLevels : () => {
+
+				dispatch(clearLevels());
+			},
+			changeGameComponentScreenType : () => {
+
+				dispatch(changeGameComponentScreenType());
 			}
 
 

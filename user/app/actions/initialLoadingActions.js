@@ -14,7 +14,7 @@ export function login (username, password) {
 			headers: {
 				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 			},
-			body: serialize({})
+			body: serialize({username, password})
 		}).then((response) => {
 			return response.json();
 		}).then((json)=> {

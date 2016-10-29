@@ -10,6 +10,7 @@ class QuestionComponent extends React.Component {
 		super(props);
 		this.onClickOptionsHandler = this.onClickOptionsHandler.bind(this);
 		this.onNextClickButtonHandler = this.onNextClickButtonHandler.bind(this);
+		this.onSubmitClickButtonHandler = this.onSubmitClickButtonHandler.bind(this);
 	}
 	onClickOptionsHandler (e) {
 
@@ -24,6 +25,11 @@ class QuestionComponent extends React.Component {
 		this.props.nextQuestion ();
 
 
+	}
+
+	onSubmitClickButtonHandler () {
+
+		this.props.submitCurrentLevelAnswers ();
 	}
 
 	getOptionsDOM (options) {
@@ -58,9 +64,8 @@ class QuestionComponent extends React.Component {
 	
 
 	render () {
-		let {questionText, options} = this.props;
+		let {questionText, options, isLastQuestionOfLevel} = this.props;
 		let optionsDOM = this.getOptionsDOM(options);
-
 		return (
 
 			<div>
@@ -73,8 +78,16 @@ class QuestionComponent extends React.Component {
 				</div>
 
 				<div>
-					<input type = 'button' onClick = {this.onNextClickButtonHandler} className = 'btn btn-primary' value = "Next"/>
+					{
+						(isLastQuestionOfLevel) ? 
 
+					(<input type = 'button' onClick = {this.onSubmitClickButtonHandler} 
+					className = 'btn btn-primary' value = "Submit"/>)
+						:
+
+					<input type = 'button' onClick = {this.onNextClickButtonHandler} 
+					className = 'btn btn-primary' value = "Next"/>
+					}
 				</div>
 			</div>
 			);

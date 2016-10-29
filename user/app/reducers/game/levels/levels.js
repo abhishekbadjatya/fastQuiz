@@ -15,7 +15,8 @@ const levels = (state = initialState.game.levels, action) => {
 		case actionConstants.SELECTED_OPTION : return selectedOption (state, action);
 												break;
 
-
+		case actionConstants.CLEAR_LEVELS : return clearLevels (state, action);
+											break;
 		default: 
 		return state
 	}
@@ -25,14 +26,19 @@ const levels = (state = initialState.game.levels, action) => {
 };
 
 
+function clearLevels (state, action) {
+
+	return [];
+}
+
 function addNewLevel (state, action) {
 
-	let newState = state.map (()=> {
-		return level;
+	let newState = state.map ((singleLevel)=> {
+		return singleLevel;
 
 	});
-
 	newState.push(action.payload);
+	
 
 	return newState;
 }

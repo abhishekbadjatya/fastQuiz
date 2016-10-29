@@ -6,7 +6,8 @@ let urlConstants = () => {
 	return {
 
 		"login" : baseUrl + 'login',
-		"newGame" : baseUrl + 'newGame'
+		"newGame" : baseUrl + 'newGame',
+		"submitLevel" : baseUrl + 'submitLevel'
 	};
 
 
