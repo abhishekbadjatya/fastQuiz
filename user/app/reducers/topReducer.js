@@ -1,10 +1,13 @@
 import {combineReducers} from 'redux';
+import userInfo from './userinfo/userInfo.js';
+import game from './game/game.js';
 
-let topReducer = () => {
 
+export default combineReducers({
 
-}
+	userInfo,
+	game
 
-export default topReducer;
+});
 
 
