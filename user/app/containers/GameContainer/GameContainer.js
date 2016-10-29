@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import GameComponent from '../../components/GameComponent/GameComponent.js';
-import {fetchNewGame} from '../../actions/gameActions.js';
+import {fetchNewGame, selectedOption, nextQuestion} from '../../actions/gameActions.js';
 
 
 const mapStateToProps = (state) => {
@@ -24,6 +24,17 @@ const mapDispatchToProps = (dispatch) => {
 				dispatch(fetchNewGame ());
 
 
+			},
+
+			selectedOption : (optionId) => {
+
+				dispatch (selectedOption(optionId));
+
+
+			},
+			nextQuestion : () => {
+
+				dispatch (nextQuestion ());
 			}
 
 

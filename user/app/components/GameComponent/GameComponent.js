@@ -36,9 +36,9 @@ class GameComponent extends React.Component {
 
 		switch (this.props.game.status.gameComponentScreenType) {
 
-			case 'ACTIVE_QUIZ' : return {game:this.props.game}
+			case 'ACTIVE_QUIZ' : return {game:this.props.game, actions: this.props.gameActions}
 								break;
-			default : return {game:this.props.game}
+			default : return {game:this.props.game, actions: this.props.gameActions}
 		}
 
 	}

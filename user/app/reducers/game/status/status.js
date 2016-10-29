@@ -22,8 +22,6 @@ const status = (state = initialState.game.status, action) => {
 
 
 function setGameStatusFlags (state, action) {
-
-
 	let newState =  Object.assign({},state, action.flags);
 	return newState;
 
