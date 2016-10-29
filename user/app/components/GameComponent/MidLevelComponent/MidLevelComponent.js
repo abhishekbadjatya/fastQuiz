@@ -51,9 +51,11 @@ class MidLevelComponent extends React.Component {
 							<div>
 								Congratulations, you have qualified for the next level.
 								Score {previousScore}
-								<input type = 'button' className = 'btn btn-primary' 
-								onClick = {()=> this.onClickNextLevelHandler()}
-								value = 'Next Level' />
+								<div>
+									<input type = 'button' className = 'btn btn-primary' 
+									onClick = {()=> this.onClickNextLevelHandler()}
+									value = 'Next Level' />
+								</div>
 							</div>
 
 

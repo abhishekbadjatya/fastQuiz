@@ -144,12 +144,12 @@ export function submitCurrentLevelAnswers () {
 
 		let store = getState ();
 		let {levels} = store.game;
-		let {currentLevel} = store.game.status.currentLevel;
+		let currentLevel = store.game.status.currentLevel;
 
 		let currentLevelObject = null;
 		_.each (levels, (singleLevel) => {
 
-			if (levels.level == currentLevel ) {
+			if (singleLevel.level == currentLevel ) {
 
 				currentLevelObject = singleLevel;
 
@@ -157,7 +157,6 @@ export function submitCurrentLevelAnswers () {
 
 
 		});
-
 
 		let answers = currentLevelObject.questions.map ((singleQuestion) => {
 
@@ -173,7 +172,8 @@ export function submitCurrentLevelAnswers () {
 
 		let payload = {
 
-			answers
+			answers,
+			currentLevel
 
 		};
 
