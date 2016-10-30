@@ -6,6 +6,7 @@ let initialState = () => {
 
 			"username" : null,
 			"isLoggedIn" : false,
+			"isLoggedInChecked" : false
 		},
 		"game" : {
 

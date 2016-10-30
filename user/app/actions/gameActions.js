@@ -200,49 +200,64 @@ export function submitCurrentLevelAnswers () {
 			if (!json.error) {
 
 
+				if (!json.isGameOver) {
 
-				if (!json.hasQualified) {
+					if (!json.hasQualified) {
 
-					dispatch({
+						dispatch({
 
-						type: actionConstants.SET_GAME_STATUS_FLAGS,
-						flags : {
-							hasQualified: false,
-							gameComponentScreenType: "MID_LEVEL",
-							previousScore: json.score
-						}
-					});
+							type: actionConstants.SET_GAME_STATUS_FLAGS,
+							flags : {
+								hasQualified: false,
+								gameComponentScreenType: "MID_LEVEL",
+								previousScore: json.score
+							}
+						});
+
+
+					} else {
+
+						dispatch ({
+
+							type : actionConstants.CLEAR_STATUS_FLAGS,
+
+						});
+						dispatch ({
+
+							type : actionConstants.ADD_NEW_LEVEL,
+							payload : json.next
+						});
+
+						dispatch ({
+							type : actionConstants.SET_GAME_STATUS_FLAGS,
+							flags : {
+
+								hasQualified: true,
+								gameComponentScreenType: "MID_LEVEL",
+								previousScore: json.score,
+								isLevelFetched : true,
+								currentLevel : json.next.level,
+								currentQuestionId : json.next.questions[0].questionId
+							}
+						});
+					}
+
 
 
 				} else {
 
 					dispatch ({
+							type : actionConstants.SET_GAME_STATUS_FLAGS,
+							flags : {
+								
+								gameComponentScreenType: "END_GAME",
+								previousScore: json.score,
+								totalScore : json.totalScore
+							}
+						});
 
-						type : actionConstants.CLEAR_STATUS_FLAGS,
 
-					});
-					dispatch ({
-
-						type : actionConstants.ADD_NEW_LEVEL,
-						payload : json.next
-					});
-
-					dispatch ({
-						type : actionConstants.SET_GAME_STATUS_FLAGS,
-						flags : {
-
-							hasQualified: true,
-							gameComponentScreenType: "MID_LEVEL",
-							previousScore: json.score,
-							isLevelFetched : true,
-							currentLevel : json.next.level,
-							currentQuestionId : json.next.questions[0].questionId
-						}
-					});
 				}
-
-
-
 			}
 			
 
