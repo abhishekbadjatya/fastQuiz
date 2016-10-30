@@ -57,17 +57,22 @@ class SubmitLevelController extends Controller {
 		$percent = $countOfCorrect/$countOfTotal;
 
 		if(Session::has('score')){
+			//echo 'Initial: ' . Session::get('score'). '<br/>';
 			$updatedScore = Session::get('score') + $countOfCorrect;
-			Session::forget('score');
+			//Session::forget('score');
 			Session::put('score', $updatedScore);
+			//echo Session::get('score');
 		}
 		else {
+			//echo 'entered else';
 			Session::put('score', $countOfCorrect);
 		}
 
 		$currentLevel = $payload['level'];
 		$nextLevel = $currentLevel + 1;
 		$maxLevel = Levels::getMaxLevel();
+		$totalScore = Session::get('score');
+
 
 		$obj = new stdClass();
 		if($currentLevel == $maxLevel){
@@ -76,6 +81,8 @@ class SubmitLevelController extends Controller {
 			$obj->isGameOver = false;
 		}
 		$obj->score = $countOfCorrect;
+		$obj->totalScore = $totalScore;
+		$obj->totalNoOfQuestionsInCurrentLevel = $countOfTotal;
 		$obj->previous = array('correctAnswers' => $obj1->correctAnswers);
 
 		if($percent > 0.5){

@@ -8,18 +8,20 @@ use App\Http\Requests;
 use App\Questions;
 use Response;
 use Illuminate\Support\Facades\Input;
-
+use Session;
 
 
 class newGameController extends Controller
 {
     //
     public function getLevelOne(){
-		
+		if (Session::has('score')) {
+
+			Session::forget('score');
+
+		}
 		$response = Questions::getQuestionsOfLevel(1);
 		return \Response::json($response);
-		//$articles= Article::all();
-		//return $articles;
 	}
 
 	

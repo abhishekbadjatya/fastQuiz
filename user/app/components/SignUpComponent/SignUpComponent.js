@@ -22,6 +22,28 @@ class SignUpComponent extends React.Component {
 	
 	onClickOfSignUButton () {
 
+		if (!this.usernameRefSave || !this.passwordRefSave.value || !this.passwordCopyRefSave) {
+
+			this.props.triggerNotification({
+
+				"level" : "error",
+				"message" : "Please, fill out all fields."
+
+
+			});
+			return
+
+		}
+
+		if (this.passwordCopyRefSave.value != this.passwordRefSave.value) {
+			this.props.triggerNotification ({
+
+				"level" : "error",
+				"message" : "Passwords don't match."
+			});
+			return
+		}
+		
 		this.props.signUp({
 
 			username : this.usernameRefSave.value,

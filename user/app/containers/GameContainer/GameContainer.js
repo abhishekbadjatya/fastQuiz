@@ -1,5 +1,6 @@
 import {connect} from 'react-redux';
 import GameComponent from '../../components/GameComponent/GameComponent.js';
+import {triggerNotification} from '../../actions/notificationActions.js';
 import {fetchNewGame, selectedOption, nextQuestion,
  submitCurrentLevelAnswers, clearStatusesFlags, clearLevels, changeGameComponentScreenType} from '../../actions/gameActions.js';
 
@@ -52,7 +53,13 @@ const mapDispatchToProps = (dispatch) => {
 			changeGameComponentScreenType : () => {
 
 				dispatch(changeGameComponentScreenType());
-			}
+			},
+			triggerNotification : (config) => {
+
+			dispatch(triggerNotification(config));
+
+
+		}
 
 
 		}

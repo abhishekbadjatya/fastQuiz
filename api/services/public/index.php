@@ -1,5 +1,5 @@
 <?php
-
+header("Access-Control-Allow-Credentials:true");
 /**
  * Laravel - A PHP Framework For Web Artisans
  *

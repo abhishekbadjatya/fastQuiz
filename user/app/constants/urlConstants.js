@@ -2,15 +2,15 @@
 
 let urlConstants = () => {
 
-	let baseUrl = "http://localhost/sampleASE/api/services/public/"
+	let baseUrl = "http://localhost/fastQuiz/api/services/public/"
 	return {
 
-		"login" : baseUrl + 'login',
+		"login" : baseUrl + 'authz/login',
 		"newGame" : baseUrl + 'newGame',
 		"submitLevel" : baseUrl + 'submitLevel',
-		"init" : baseUrl + 'init',
-		"signUp" : baseUrl + 'signUp',
-		"logout" : baseUrl + 'logout'
+		"init" : baseUrl + 'authz/getsession',
+		"signUp" : baseUrl + '/authz/signup',
+		"logout" : baseUrl + '/authz/logout'
 	};
 
 

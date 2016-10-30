@@ -3,7 +3,7 @@ import {serialize} from '../util/util.js';
 import actionConstants from '../constants/actionConstants.js';
 import {hashHistory} from 'react-router';
 import {triggerNotification} from './notificationActions.js';
-
+import {kfetch} from '../util/util.js';
 
 
 export function checkInit () {
@@ -12,7 +12,7 @@ export function checkInit () {
 
 		if (!getState().userInfo.isLoggedInChecked) {
 
-			return fetch(urlConstants.init)
+			return kfetch(urlConstants.init)
 			.then((response) => {
 
 				return response.json();
@@ -68,36 +68,21 @@ export function checkInit () {
 }
 
 
-function checkAndDispatchIfFieldsEmpty (username, password, dispatch) {
-
-	if (!username || !password ) {
-
-		dispatch (triggerNotification({
-			message : 'Fill out all fields',
-			level: 'error'
-		}));
-
-		return false;
-	} else {
-		return true;
-	}
-}
-
 
 export function login (username, password) {
 
 
 	return function (dispatch, getState) {
 
-		if (checkAndDispatchIfFieldsEmpty(username, password, dispatch)) {
+		
 
-			fetch(urlConstants.login, {
+			kfetch(urlConstants.login, {
 
 				method :'POST',
 				headers: {
 					'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				},
-				body: serialize({username, password})
+				body: serialize({userName : username, password})
 			}).then((response) => {
 				return response.json();
 			}).then((json)=> {
@@ -138,7 +123,7 @@ export function login (username, password) {
 
 
 
-		} 
+		
 
 		
 
@@ -158,8 +143,14 @@ function checkAndDispatchIfFieldsEmptyForSignUp (payload, dispatch) {
 export function signUp (payload)  {
 
 	return function (dispatch, getState)  {
+		
+		payload.userName = payload.username;
+		payload.emailId = "sample";
+		payload.maxScore = 0;
+		payload.maxLevelReached = 1;
+		delete payload["username"];
 
-		fetch(urlConstants.signUp, {
+		kfetch(urlConstants.signUp, {
 
 			method :'POST',
 			headers: {
@@ -177,6 +168,7 @@ export function signUp (payload)  {
 				json.isLoggedIn = true;
 				
 
+
 				dispatch ({
 
 					'type' : actionConstants.SET_USER_INFO,
@@ -187,6 +179,16 @@ export function signUp (payload)  {
 
 
 
+			} else {
+				if (json.error = "USERNAME_TAKEN") {
+					dispatch(triggerNotification({
+
+						"level" : "error",
+						"message" : "Username is taken"
+
+
+					}));
+				}
 			}
 			
 
@@ -204,18 +206,19 @@ export function logout () {
 
 	return function (dispatch, getState)  {
 
-		fetch(urlConstants.logout)
+		kfetch(urlConstants.logout)
 		.then((response) => {
+			location.reload();
 			return response.json();
 		}).then((json)=> {
 
 
 
-			if (!json.error) {
+			console.log('here');
+			//TODO- CHECK FOR 200
+			
 
-				location.reload();
-
-			}
+			
 			
 
 		}).catch(() => {

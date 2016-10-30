@@ -3,6 +3,7 @@ import CSSModules from 'react-css-modules';
 import LoginStyle from './assets/LoginComponent.scss';
 import {hashHistory} from 'react-router';
 
+
 class LoginComponent extends React.Component {
 
 	constructor (props) {
@@ -38,8 +39,22 @@ class LoginComponent extends React.Component {
 	onClickOfLoginButton () {
 		let username = this.usernameRef.value; 
 		let password = this.passwordRef.value;
-		let {login} = this.props;
-		login (username, password);
+
+		if (!username || !password) {
+
+			this.props.triggerNotification({
+				level : 'error',
+				message : 'Please fill out all fields.'
+
+			});
+
+		} else {
+
+			let {login} = this.props;
+			login (username, password);
+
+		}
+		
 	}
 
 	render () {

@@ -11,3 +11,10 @@ encodeURIComponent(k) + '=' + encodeURIComponent(v));
 	}
 	return str.join('&');
 }
+
+
+export function kfetch (url, optionsInit) {
+
+	let init = Object.assign ({}, {credentials:'include'}, optionsInit);
+	return fetch(url, init);
+}

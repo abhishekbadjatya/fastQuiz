@@ -11,25 +11,68 @@ class QuestionComponent extends React.Component {
 		this.onClickOptionsHandler = this.onClickOptionsHandler.bind(this);
 		this.onNextClickButtonHandler = this.onNextClickButtonHandler.bind(this);
 		this.onSubmitClickButtonHandler = this.onSubmitClickButtonHandler.bind(this);
+		this.state = {
+			'optionSelected' : false
+		};
 	}
 	onClickOptionsHandler (e) {
 
 		let optionSelected = e.target.value;
 		this.props.selectedOption(optionSelected);
+		this.setState({
+			optionSelected : true
+		});
 
 
 	}
 
 	onNextClickButtonHandler () {
 
-		this.props.nextQuestion ();
+		if (this.state.optionSelected) {
+
+			this.props.nextQuestion ();
+			this.setState({
+				"optionSelected" : false
+
+			});
+
+		} else {
+
+			this.props.triggerNotification({
+
+				"level" : "error",
+				"message" : "Please, select an option."
+
+
+			});
+
+		}
+		
 
 
 	}
 
 	onSubmitClickButtonHandler () {
+		if (this.state.optionSelected) {
 
-		this.props.submitCurrentLevelAnswers ();
+			this.props.submitCurrentLevelAnswers ();
+			this.setState({
+				"optionSelected" : false
+
+			});
+
+		} else {
+
+			this.props.triggerNotification({
+
+				"level" : "error",
+				"message" : "Please, select an option."
+
+
+			});
+
+		}
+		
 	}
 
 	getOptionsDOM (options) {

@@ -3,13 +3,15 @@ import {serialize} from '../util/util.js';
 import actionConstants from '../constants/actionConstants.js';
 import {hashHistory} from 'react-router';
 import _ from 'lodash';
+import {kfetch} from '../util/util.js';
+
 
 export function fetchNewGame (username, password) {
 
 
 	return function (dispatch, getState) {
 
-		fetch(urlConstants.newGame)
+		kfetch(urlConstants.newGame)
 		.then((response) => {
 			return response.json();
 		}).then((json)=> {
@@ -173,7 +175,7 @@ export function submitCurrentLevelAnswers () {
 		let payload = {
 
 			answers,
-			currentLevel
+			level: currentLevel
 
 		};
 
@@ -184,7 +186,7 @@ export function submitCurrentLevelAnswers () {
 			}
 		});
 
-		fetch(urlConstants.submitLevel, {
+		kfetch(urlConstants.submitLevel, {
 
 			method :'POST',
 			headers: {

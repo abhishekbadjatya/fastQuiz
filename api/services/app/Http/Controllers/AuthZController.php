@@ -43,7 +43,7 @@ class AuthZController extends Controller
         else
          {  
             $usercred=['userName' => $data['userName'],'password' => null];
-            Session::put('username',$username);
+            Session::put('username',$data['userName']);
             return Response(json_encode($usercred));
          }
 

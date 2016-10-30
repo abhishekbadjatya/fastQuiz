@@ -84,6 +84,7 @@ class ActiveQuizComponent extends React.Component {
 				<div className = 'col-xs-12'>
 
 					<QuestionComponent
+					triggerNotification = {this.props.actions.triggerNotification}
 					submitCurrentLevelAnswers = {submitCurrentLevelAnswers}
 					isLastQuestionOfLevel = {status.isLastQuestionOfLevel}
 					nextQuestion = {nextQuestion}
