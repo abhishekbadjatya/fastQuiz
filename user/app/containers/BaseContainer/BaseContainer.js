@@ -4,7 +4,8 @@ import {logout} from '../../actions/initialLoadingActions.js';
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn : state.userInfo.isLoggedIn
+		// isLoggedIn : state.userInfo.isLoggedIn,
+		notifConfig : state.notifConfig
 	};
 };
 
@@ -12,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
 
 	return {
 
-		"logout" : () => {
+		logout : () => {
 
 			dispatch(logout());
 

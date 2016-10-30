@@ -2,6 +2,7 @@ import urlConstants from '../constants/urlConstants.js';
 import {serialize} from '../util/util.js';
 import actionConstants from '../constants/actionConstants.js';
 import {hashHistory} from 'react-router';
+import {triggerNotification} from './notificationActions.js';
 
 
 
@@ -30,8 +31,8 @@ export function checkInit () {
 					
 					dispatch ({
 
-					'type' : actionConstants.SET_USER_INFO,
-					payload: json
+						'type' : actionConstants.SET_USER_INFO,
+						payload: json
 					});
 
 
@@ -67,45 +68,79 @@ export function checkInit () {
 }
 
 
+function checkAndDispatchIfFieldsEmpty (username, password, dispatch) {
+
+	if (!username || !password ) {
+
+		dispatch (triggerNotification({
+			message : 'Fill out all fields',
+			level: 'error'
+		}));
+
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
 export function login (username, password) {
 
 
 	return function (dispatch, getState) {
 
-		fetch(urlConstants.login, {
+		if (checkAndDispatchIfFieldsEmpty(username, password, dispatch)) {
 
-			method :'POST',
-			headers: {
-				'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
-			},
-			body: serialize({username, password})
-		}).then((response) => {
-			return response.json();
-		}).then((json)=> {
+			fetch(urlConstants.login, {
 
-
-
-			if (!json.error) {
-
-				json.isLoggedIn = true;
-				
-
-				dispatch ({
-
-					'type' : actionConstants.SET_USER_INFO,
-					payload: json
-				});
-
-				hashHistory.push('dashboard');
+				method :'POST',
+				headers: {
+					'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+				},
+				body: serialize({username, password})
+			}).then((response) => {
+				return response.json();
+			}).then((json)=> {
 
 
 
-			}
-			
+				if (!json.error) {
 
-		}).catch(() => {
-			
-		});
+					json.isLoggedIn = true;
+
+
+					dispatch ({
+
+						'type' : actionConstants.SET_USER_INFO,
+						payload: json
+					});
+
+					hashHistory.push('dashboard');
+
+
+
+				} else {
+
+					if (json.error == "INCORRECT_CREDENTIALS") {
+
+						dispatch (triggerNotification({
+							message : 'Incorrect Crendentials',
+							level: 'error'
+						}));
+
+					}
+				}
+
+
+			}).catch(() => {
+
+			});
+
+
+
+		} 
+
+		
 
 
 	};

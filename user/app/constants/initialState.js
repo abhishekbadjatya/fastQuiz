@@ -8,6 +8,13 @@ let initialState = () => {
 			"isLoggedIn" : false,
 			"isLoggedInChecked" : false
 		},
+		"notifConfig" : {
+			
+			isTriggered : false,
+			level : null,
+			message : null
+
+		},
 		"game" : {
 
 			status : {

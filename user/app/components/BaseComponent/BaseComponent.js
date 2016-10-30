@@ -1,6 +1,8 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import BaseStyle from './assets/BaseComponent.scss';
+import NotificationSystem from 'react-notification-system';
+
 
 class BaseComponent extends React.Component {
 
@@ -11,12 +13,27 @@ class BaseComponent extends React.Component {
 	}
 
 	
+	componentWillReceiveProps (nextProps) {
+
+		if (this.props.notifConfig.isTriggered != nextProps.notifConfig.isTriggered) {
+
+			if (nextProps.notifConfig.isTriggered) {
+
+				this.notificationRef.addNotification({
+						"level" : nextProps.notifConfig.level,
+						"message" : nextProps.notifConfig.message
+				});
+			}
+		}
 	
+
+		
+
+	}
 
 	render () {
 
 		let {isLoggedIn} = this.props;
-
 		return (
 			<div >
 				<div styleName = 'base-header'  className = 'col-xs-12'>
@@ -34,10 +51,10 @@ class BaseComponent extends React.Component {
 
 							}
 					</div>
-				
+				<NotificationSystem ref={(ref) => this.notificationRef = ref} />
 				</div>
 
-				<div className = 'col-md-12'>
+				<div className = 'col-xs-12'>
 
 					{this.props.children}
 
