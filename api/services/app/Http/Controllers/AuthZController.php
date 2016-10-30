@@ -25,7 +25,7 @@ class AuthZController extends Controller
         if($resp==false)
             return Response(json_encode(['error' => 'INCORRECT_CREDENTIALS']));
         else
-         {  Session::put('userName',$username);
+         {  Session::put('username',$username);
             $usercred['password']=null;
             return Response(json_encode($usercred));
          }
@@ -43,6 +43,7 @@ class AuthZController extends Controller
         else
          {  
             $usercred=['userName' => $data['userName'],'password' => null];
+            Session::put('username',$username);
             return Response(json_encode($usercred));
          }
 
