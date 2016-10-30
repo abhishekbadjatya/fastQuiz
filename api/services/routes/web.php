@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-	return Response::json(array ("sajal"=>"ashjdbhjs"));
-});
+
 Route::post('/authz/signup', 'AuthZController@signup');
 Route::get('/authz/getsession','AuthZController@checkSession');
 Route::post('/authz/login','AuthZController@loggingin');
