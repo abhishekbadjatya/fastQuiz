@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import LoginStyle from './assets/LoginComponent.scss';
+import {hashHistory} from 'react-router';
 
 class LoginComponent extends React.Component {
 
@@ -11,6 +12,13 @@ class LoginComponent extends React.Component {
 		this.onClickOfLoginButton = this.onClickOfLoginButton.bind(this);
 		this.usernameRefSave = this.usernameRefSave.bind(this);
 		this.passwordRefSave = this.passwordRefSave.bind(this);
+		this.onClickOfGoToSignUp = this.onClickOfGoToSignUp.bind(this);
+	}
+
+	onClickOfGoToSignUp () {
+
+		hashHistory.push('signUp');
+
 	}
 
 	_handleKeyPress (e) {
@@ -49,7 +57,12 @@ class LoginComponent extends React.Component {
 				 	onKeyPress = {this._handleKeyPress} />
 				</div>
 				 <input type = 'button' onClick = {this.onClickOfLoginButton}
-				  className = 'btn btn-primary' value = 'login' />
+				  className = 'btn btn-primary' value = 'login' /> 
+				  <div>
+				  		<br/>
+					  <input type = 'button' onClick = {this.onClickOfGoToSignUp}
+					  className = 'btn btn-primary' value = 'New User' />
+				  </div>
 			</div>
 
 

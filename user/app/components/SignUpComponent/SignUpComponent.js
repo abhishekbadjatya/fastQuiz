@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import SignUpComponentStyles from './assets/SignUpComponent.scss';
+import {hashHistory} from 'react-router';
 
 class SignUpComponent extends React.Component {
 
@@ -51,6 +52,12 @@ class SignUpComponent extends React.Component {
 				</div>
 				 <input type = 'button' onClick = {this.onClickOfSignUButton}
 				  className = 'btn btn-primary' value = 'Sign Up' />
+				  <br/>
+				  <br/>
+
+				  <input type = 'button' onClick = {()=> hashHistory.push('login')}
+				  className = 'btn btn-primary' value = 'Already a User' />
+
 			</div>
 
 

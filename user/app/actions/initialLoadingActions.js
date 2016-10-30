@@ -148,6 +148,13 @@ export function login (username, password) {
 
 }
 
+
+function checkAndDispatchIfFieldsEmptyForSignUp (payload, dispatch) {
+
+
+	
+}
+
 export function signUp (payload)  {
 
 	return function (dispatch, getState)  {
