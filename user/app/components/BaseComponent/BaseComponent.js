@@ -37,8 +37,8 @@ class BaseComponent extends React.Component {
 		return (
 			<div >
 				<div styleName = 'base-header'  className = 'col-xs-12'>
-					<div className = 'col-xs-3'>
-						Fast Quiz
+					<div styleName = 'app-name' className = 'col-xs-3'>
+						FastQuiz
 					</div>
 					<div className = 'col-xs-9 text-right'>
 							{

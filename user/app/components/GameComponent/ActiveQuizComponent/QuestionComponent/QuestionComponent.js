@@ -112,11 +112,11 @@ class QuestionComponent extends React.Component {
 		return (
 
 			<div>
-				<div className = 'col-xs-12'>
-					{questionText}
+				<div styleName = 'question-text'>
+					Q. {questionText}
 
 				</div>
-				<div>
+				<div styleName = 'options' >
 					{optionsDOM}
 				</div>
 
@@ -128,8 +128,10 @@ class QuestionComponent extends React.Component {
 					className = 'btn btn-primary' value = "Submit"/>)
 						:
 
-					<input type = 'button' onClick = {this.onNextClickButtonHandler} 
-					className = 'btn btn-primary' value = "Next"/>
+					<button type = 'button' onClick = {this.onNextClickButtonHandler} 
+					className = 'btn btn-primary' value = "Next">Next
+					 	<span className="glyphicon glyphicon-chevron-right"></span>
+					 </button>
 					}
 				</div>
 			</div>

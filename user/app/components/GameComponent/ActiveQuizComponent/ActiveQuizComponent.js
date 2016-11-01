@@ -77,7 +77,7 @@ class ActiveQuizComponent extends React.Component {
 			let {selectedOption, nextQuestion, submitCurrentLevelAnswers} = this.props.actions;
 			return (
 			<div>
-				<div className = 'col-xs-12 text-center'>
+				<div styleName = 'level-heading' className = 'col-xs-12 text-left'>
 					Level {status.currentLevel}
 				</div>
 

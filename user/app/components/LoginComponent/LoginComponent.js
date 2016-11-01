@@ -60,24 +60,38 @@ class LoginComponent extends React.Component {
 	render () {
 		return (
 			<div  className = 'col-md-12'>
-				<div>
 
-					<strong>Username</strong>:  <input type='text' 
+				<div className = 'col-xs-6 text-right'>
+					<div>
+
+						<strong>Username</strong>:
+					</div>
+					<div>
+
+						<strong>Password</strong>:
+					</div>
+				</div>
+				<div className = 'col-xs-6'>
+
+					<div>
+
+					  <input type='text' 
 					ref = {this.usernameRefSave} 
 					onKeyPress = {this._handleKeyPress} />
+					</div>
+					<div>
+						  <input type ='password' 
+						 ref = {this.passwordRefSave}
+					 	onKeyPress = {this._handleKeyPress} />
+					</div>
 				</div>
-				<div>
-					<strong>Password</strong>:  <input type ='password' 
-					 ref = {this.passwordRefSave}
-				 	onKeyPress = {this._handleKeyPress} />
+				<div styleName = 'buttons' className = 'col-xs-12 text-center'>
+					<input styleName = 'login' type = 'button' onClick = {this.onClickOfLoginButton}
+						className = 'btn btn-primary' value = 'Login' /> 
+
+					<input styleName = 'new-user' type = 'button' onClick = {this.onClickOfGoToSignUp}
+						className = 'btn btn-primary' value = 'New User' />
 				</div>
-				 <input type = 'button' onClick = {this.onClickOfLoginButton}
-				  className = 'btn btn-primary' value = 'login' /> 
-				  <div>
-				  		<br/>
-					  <input type = 'button' onClick = {this.onClickOfGoToSignUp}
-					  className = 'btn btn-primary' value = 'New User' />
-				  </div>
 			</div>
 
 
