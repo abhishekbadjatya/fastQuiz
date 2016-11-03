@@ -1,6 +1,6 @@
 # fastQuiz
 
-To set up the project make sure **composer** and **node** installed on your system globally. Also make sure you have valid **mysql** and **apache** servers installation.
+To set up the project make sure that **composer** and **node** are installed on your system globally. Also make sure you have valid **mysql** and **apache** servers installation.
 
 Run the setup.sh file
 
