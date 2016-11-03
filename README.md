@@ -5,7 +5,7 @@ To set up the project make sure **composer** and **node** installed on your syst
 Run the setup.sh file
 
 ```
-./setup.sh
+bash ./setup.sh
 ```
 
 Edit the following configurations according to your system - 
@@ -19,7 +19,7 @@ DB_PASSWORD` in `.env` accordingly.
 
 Run the database.sh file for migration and seeding.
 ```
-./database.sh
+bash ./database.sh
 ```
 
 
@@ -29,4 +29,4 @@ $ cd user
 $ npm run dev
 ```
 
-and open http://localhost:3000#login
+and open http://localhost:8080/public/#/login
