@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo npm install -g webpack
-sudo npm install webpack-dev-server
+sudo npm install -g webpack-dev-server
 cd user
 npm install
 cd ..
