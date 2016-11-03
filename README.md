@@ -17,6 +17,11 @@ DB_USERNAME,
 DB_PASSWORD` in `.env` accordingly.
 
 
+Run the database.sh file for migration and seeding.
+```
+./database.sh
+```
+
 
 To run environment - 
 ```sh
