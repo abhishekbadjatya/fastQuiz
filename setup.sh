@@ -8,10 +8,13 @@ cd ..
 cd api/services
 
 
-/usr/local/bin/composer.phar install
-/usr/local/bin/composer.phar dump-autoload -o
+composer install
+composer dump-autoload -o
 
 cp .env.example .env
 
-sudo chmod -R 777 storage/*
-sudo chmod -R 777 bootstrap/*
+sudo chmod -R 777 storage
+sudo chmod -R 777 bootstrap
+
+php artisan key:generate
+php artisan config:clear
