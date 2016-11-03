@@ -1,40 +1,27 @@
 # fastQuiz
 
-To set up the project make sure **composer**, **node**, **npm** and **webpack** installed on your system globally.
+To set up the project make sure **composer** and **node** installed on your system globally. Also make sure you have valid **mysql** and **apache** servers installation.
 
-Steps to backend install dependencies - 
-   
+Run the setup.sh file
 
-```sh
-$ cd api/services
-$ composer install
 ```
-To run static anaylysis on backend code - 
-```sh
-$ cd api/services
-$ ./vendor/bin/phpmd ./app/ text codesize,unusedcode,naming --exclude /app/tests/TestCase.php
+./setup.sh
 ```
 
+Edit the following configurations according to your system - 
+* `baseUrl` to the location of folder in `api/services/public`  in `url/constants/urlConstants.js`
 
-Steps to front end install dependencies - 
-   
-
-```sh
-$ cd user
-$ npm install
-```
-
+* Create a DB. Change  `
+DB_DATABASE,
+DB_USERNAME,
+DB_PASSWORD` in `.env` accordingly.
 
 
-To run development environment - 
+
+To run environment - 
 ```sh
 $ cd user
 $ npm run dev
 ```
 
-
-To build production bundle.js with static anaylysis file for front end - 
-```sh
-$ cd user
-$ npm run build
-```
+and open http://localhost:3000#login
