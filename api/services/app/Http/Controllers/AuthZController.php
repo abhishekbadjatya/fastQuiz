@@ -16,6 +16,9 @@ class AuthZController extends Controller
     public function loggingin()
     {
         $data = Input::all();
+        if($data['password']==''||$data['userName']=='')
+            return Response(json_encode([
+            'error' => 'MALFORMED_JSON']),400);
         $username =  strtolower($data['userName']);
         $usercred=[
         'userName' => $username,
@@ -35,8 +38,11 @@ class AuthZController extends Controller
     public function signup()
     {
         $data = Input::all();
-        
+        if($data['password']==''||$data['userName']=='')
+            return Response(json_encode([
+            'error' => 'MALFORMED_JSON']),400);
         $resp=User::signup($data);
+
         if($resp==false)
             return Response(json_encode([
             'error' => 'USERNAME_TAKEN']));
