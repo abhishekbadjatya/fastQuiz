@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use App\Options;
 
 class Questions extends Model
@@ -12,6 +13,13 @@ class Questions extends Model
 	public static function getQuestions () {
 		return Questions::get()->toArray();
 	}
+	public static function getQuestionIdsOfLevel ($level) {
+		//return Questions::where('questionLevel', '=', $level)->select('questionId')->get()->toArray();
+		$result = DB::table('questions')
+					->where('questionLevel', $level)
+					->pluck('questionId');
+		return $result->toArray();
+	}
 	public static function getQuestionsOfLevel ($level) {
 		$questions=Questions::where('questionLevel', '=', $level)->select('questionId', 'questionText')->get()->toArray();
 		$questionId=array();
@@ -19,10 +27,6 @@ class Questions extends Model
 			array_push($questionId, $question['questionId']);
 		}
 		$options=Options::getOptionsForQuestions($questionId);
-		//return $options;
-		//return $questionId;
-		//return $questions[0];
-		//return $question;
 		$optionsFormatted = array();
 		foreach ($options as $option){
 			$array_temp=array("optionId"=>$option['optionId'],"optionLabel"=>$option['optionLabel']);
