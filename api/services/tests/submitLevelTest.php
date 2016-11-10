@@ -11,6 +11,7 @@ class submitLevelTest extends TestCase
      *
      * @return void
      */
+    use DatabaseTransactions;
     public function testnewGameRoute()
     {
         $this->get('/newGame')

@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Response;
 
-class SignUpTest extends TestCase
+class LoginTest extends TestCase
 {
     /**
      * A basic functional test example.
