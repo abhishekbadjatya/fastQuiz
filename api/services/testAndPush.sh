@@ -6,7 +6,7 @@ if [ $? == 0 ]; then
 	cd ../..
 	GITCMD=$(git add *)
 	GITCOMMIT=$(git commit -m"$1")
-	GITPUSH=$(git push origin develop)
+	GITPUSH=$(git push origin devlop)
 
 	
 else
