@@ -22,6 +22,7 @@ Route::group (['middleware' => 'cors'], function () {
 	//Route::get('/level','LevelController@getLevels');
 	Route::get('/newGame','newGameController@getLevelOne');
 	Route::post('/submitLevel', 'SubmitLevelController@index');
+	Route::post('/endGame', 'EndGameController@index');
 
 
 
