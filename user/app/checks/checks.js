@@ -61,3 +61,23 @@ export function newGameCheck () {
 
 
 }
+
+export function leaderboardCheck () {
+
+	store.dispatch(checkInit())
+	.then((response) => {
+
+		switch (response) {
+
+			case 'SESSION_DOES_NOT_EXIST' : 
+			case 'USER_NOT_LOGGED_IN' : hashHistory.push('login')
+										break;
+			case 'USER_LOGGED_IN' :
+
+
+		}
+
+	});
+
+
+}

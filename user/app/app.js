@@ -8,7 +8,9 @@ import LoginContainer from './containers/LoginContainer/LoginContainer.js';
 import DashboardContainer from './containers/DashboardContainer/DashboardContainer.js';
 import GameContainer from './containers/GameContainer/GameContainer.js';
 import SignUpContainer from './containers/SignUpContainer/SignUpContainer.js';
-import {loginCheck, dashboardCheck, newGameCheck} from './checks/checks.js';
+import LeaderboardContainer from './containers/LeaderboardContainer/LeaderboardContainer.js';
+import UpdatePasswordContainer from './containers/UpdatePasswordContainer/UpdatePasswordContainer.js';
+import {loginCheck, dashboardCheck, newGameCheck, leaderboardCheck} from './checks/checks.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
@@ -21,6 +23,8 @@ ReactDOM.render(
 				<Route onEnter = {dashboardCheck} path = 'dashboard' component = {DashboardContainer} />
 				<Route onEnter = {newGameCheck} path = 'new-game' component = {GameContainer} />
 				<Route path = "signUp" component = {SignUpContainer} />
+				<Route onEnter = {leaderboardCheck} path = "leaderboard" component = {LeaderboardContainer} />
+				<Route onEnter = {leaderboardCheck} path = "updatePassword" component = {UpdatePasswordContainer} />
 			</Route>
 		</Router>
 

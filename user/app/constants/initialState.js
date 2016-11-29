@@ -32,6 +32,24 @@ let initialState = () => {
 
 		},
 
+		"leaderboard" : [
+		{
+				"userId": "userid",
+	   	 		 "username": "username",
+	   				 "maxLevelReached":"maxlevelreached",
+	   				 "maxScore":"maxScore"
+			 	}
+		]
+
+			// "leaderboard":[
+			// 	{
+			// 		"UserId": "userid",
+			// 		 "Username": "username",
+	  // 				 "maxLevelReached":"maxlevelreached",
+	  // 				 "maxScore":"maxScore"
+			// 	}]
+		
+
 	};
 
 };
