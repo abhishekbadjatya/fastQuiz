@@ -16,6 +16,7 @@ class AuthZController extends Controller
     public function loggingin()
     {
         $data = Input::all();
+        #return Response(json_encode($data));
         $data['userName'] = trim($data['userName']);
         if($data['password']==''||$data['userName']=='')
             return Response(json_encode([
@@ -88,11 +89,11 @@ class AuthZController extends Controller
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
     }
-    public function updatePassword()
+    public function changePassword()
     {
         if(Session::has('username'))
             {  $data = Input::all();
-               $resp= User::updatePassword(Session::get('username'),$data);
+               $resp= User::changePassword(Session::get('username'),$data);
                if($resp==true)
                {
                $usercred=[
@@ -103,7 +104,7 @@ class AuthZController extends Controller
             
             }
             else
-                return Response(json_encode(["error" =>"Session does not exist"));
+                return Response(json_encode(["error" =>"Session does not exist"]));
         }
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
@@ -112,7 +113,7 @@ class AuthZController extends Controller
     public function getLeaderboard()
     {
         if(Session::has('username'))
-            {  $data = Input::all();
+            {  
                $resp= User::getLeaderboard();
                if($resp!=null)
                {
@@ -121,7 +122,7 @@ class AuthZController extends Controller
             
             }
             else
-                return Response(json_encode(["error" =>"No Data found"));
+                return Response(json_encode(["error" =>"No Data found"]));
         }
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));

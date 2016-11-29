@@ -28,8 +28,6 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['maxLevelReached','maxScore',
-    ];
 
     public static function logincheck($usercred)
     {
@@ -72,21 +70,19 @@ class User extends Model
         return true;
     }
 
-    public static function updatePassword($usercred,$data)
+    public static function changePassword($usercred,$data)
     {
-        $userval=User::find('userName', '=',$usercred)
-        if($userval['password']!=$data['oldpassword'])
-            return false;
-        $userval->password=$data['newpassword'];
-        #$us=User::where('userName', '=',$usercred)->update(array('password' => $data['newpassword']));
-        $userval->save;
-        if(count($userval)==0)
+        $userval=User::where('userName', '=',$usercred)->get()->toArray();
+        if(!Hash::check($data['oldpassword'],$userval[0]['password']))
+                return false;
+       $affectedRows= User::where('userName', '=',$usercred)->update(array('password' => $data['newpassword']));
+        if(count($affectedRows)==0)
                         return false;
         return true;
     }
     public static function getLeaderboard()
     {
-        $userval=User::orderBy('maxScore')->get()->toArray();
+        $userval=User::orderBy('maxScore','DESC')->select('userName','userId','maxLevelReached','maxScore')->get()->toArray();
         if(count($userval)==0)
                         return null;
         return $userval;
