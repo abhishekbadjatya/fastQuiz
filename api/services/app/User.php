@@ -71,4 +71,24 @@ class User extends Model
                         return false;
         return true;
     }
+
+    public static function updatePassword($usercred,$data)
+    {
+        $userval=User::find('userName', '=',$usercred)
+        if($userval['password']!=$data['oldpassword'])
+            return false;
+        $userval->password=$data['newpassword'];
+        #$us=User::where('userName', '=',$usercred)->update(array('password' => $data['newpassword']));
+        $userval->save;
+        if(count($userval)==0)
+                        return false;
+        return true;
+    }
+    public static function getLeaderboard()
+    {
+        $userval=User::orderBy('maxScore')->get()->toArray();
+        if(count($userval)==0)
+                        return null;
+        return $userval;
+    }
 }

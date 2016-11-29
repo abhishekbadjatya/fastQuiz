@@ -88,5 +88,42 @@ class AuthZController extends Controller
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
     }
-    
+    public function updatePassword()
+    {
+        if(Session::has('username'))
+            {  $data = Input::all();
+               $resp= User::updatePassword(Session::get('username'),$data);
+               if($resp==true)
+               {
+               $usercred=[
+        'userName' => Session::get('username'),
+        'password' => "",
+        ];
+               return Response(json_encode($usercred));
+            
+            }
+            else
+                return Response(json_encode(["error" =>"Session does not exist"));
+        }
+        else
+            return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
+    }
+
+    public function getLeaderboard()
+    {
+        if(Session::has('username'))
+            {  $data = Input::all();
+               $resp= User::getLeaderboard();
+               if($resp!=null)
+               {
+               
+               return Response(json_encode($resp));
+            
+            }
+            else
+                return Response(json_encode(["error" =>"No Data found"));
+        }
+        else
+            return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
+    }
 }
