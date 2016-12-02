@@ -14,7 +14,7 @@ export function updatePassword (oldpassword,newpassword) {
 
 	kfetch(urlConstants.updatePassword, {
 
-				method :'PUT',
+				method :'POST',
 				headers: {
 					'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
 				},
@@ -23,8 +23,6 @@ export function updatePassword (oldpassword,newpassword) {
 				return response.json();
 			}).then((json)=> {
 
-
-				console.log(json)
 				if (!json.error) {
 
 
@@ -34,10 +32,10 @@ export function updatePassword (oldpassword,newpassword) {
 
 				} else {
 
-					if (json.error == "INCORRECT_CREDENTIALS") {
+					if (json.error == "INCORRECT_PASSWORD") {
 
 						dispatch (triggerNotification({
-							message : 'Incorrect Crendentials',
+							message : 'Incorrect Password',
 							level: 'error'
 						}));
 

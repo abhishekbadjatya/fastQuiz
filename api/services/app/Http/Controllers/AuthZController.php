@@ -91,20 +91,22 @@ class AuthZController extends Controller
     }
     public function changePassword()
     {
-        if(Session::has('username'))
-            {  $data = Input::all();
-               $resp= User::changePassword(Session::get('username'),$data);
-               if($resp==true)
-               {
-               $usercred=[
-        'userName' => Session::get('username'),
-        'password' => "",
-        ];
-               return Response(json_encode($usercred));
+        if(Session::has('username')){
+
+            $data = Input::all();
+            $resp= User::changePassword(Session::get('username'),$data);
+            if($resp==true) {
+
+                $usercred=[
+                    'userName' => Session::get('username'),
+                    'password' => "",
+                ];
+                return Response(json_encode($usercred));
             
+            } else {
+
+                return Response(json_encode(["error" =>"INCORRECT_PASSWORD"]));
             }
-            else
-                return Response(json_encode(["error" =>"Session does not exist"]));
         }
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));

@@ -11,8 +11,8 @@ let urlConstants = () => {
 		"init" : baseUrl + 'authz/getsession',
 		"signUp" : baseUrl + '/authz/signup',
 		"logout" : baseUrl + '/authz/logout',
-        "leaderboard" : 'http://localhost:5000/leaderboard',
-        "updatePassword": "http://localhost:5000/userupdate"
+        "leaderboard" : baseUrl+'getLeaderboard',
+        "updatePassword": baseUrl + 'changePassword'
 	};
 
 

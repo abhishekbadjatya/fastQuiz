@@ -29,8 +29,6 @@ class BaseComponent extends React.Component {
 		}
 	
 
-		
-
 	}
 	onClickLeaderboardHandler () {
 		hashHistory.push('leaderboard');
@@ -68,17 +66,28 @@ class BaseComponent extends React.Component {
 				</div>
 
 				<div className = 'col-xs-12'>
-					<div className = 'col-xs-1'>
-						<div onClick = {() => this.onClickDashboardHandler()}>
-							Dashboard
-						</div>
-						<div onClick = {() => this.onClickLeaderboardHandler()}>
-							Leaderboard
-						</div>
-						<div onClick = {() => this.onClickUserManagementHandler()}>
-							User Management
-						</div>
-					</div>
+
+
+					{
+									(isLoggedIn) ? 
+										(
+											<div className = 'col-xs-1'>
+												<div styleName ='pointer' onClick = {() => this.onClickDashboardHandler()}>
+													Dashboard
+												</div>
+												<div styleName ='pointer' onClick = {() => this.onClickLeaderboardHandler()}>
+													Leaderboard
+												</div>
+												<div styleName ='pointer' onClick = {() => this.onClickUserManagementHandler()}>
+													User Management
+												</div>
+											</div>
+										)
+										:
+										(null)
+
+					}
+					
 					<div className = 'col-xs-11'>
 						{this.props.children}
 					</div>

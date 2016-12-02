@@ -18,12 +18,11 @@ class LeaderboardComponent extends React.Component {
 	}
 
 	render () {
-		console.log(this.props.leaderboard);
 		let tableContent=this.props.leaderboard.map(
 			(singleUser)=> {
 				return (
 						<tr key={singleUser.userId}>
-							<td>{singleUser.username}</td>
+							<td>{singleUser.userName}</td>
 							<td>{singleUser.maxLevelReached}</td>
 							<td>{singleUser.maxScore}</td>
 						</tr>

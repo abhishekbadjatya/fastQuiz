@@ -75,7 +75,7 @@ class User extends Model
         $userval=User::where('userName', '=',$usercred)->get()->toArray();
         if(!Hash::check($data['oldpassword'],$userval[0]['password']))
                 return false;
-       $affectedRows= User::where('userName', '=',$usercred)->update(array('password' => $data['newpassword']));
+       $affectedRows= User::where('userName', '=',$usercred)->update(array('password' => Hash::make($data['newpassword'])));
         if(count($affectedRows)==0)
                         return false;
         return true;
