@@ -52,6 +52,9 @@ class GameComponent extends React.Component {
 		}
 
 	}
+	componentWillUnmount() {
+		this.props.gameActions.clearLevels();
+	}
 	render () {
 
 		let ComponentToBeLoaded =  this.getTypeOfComponentToLoad();

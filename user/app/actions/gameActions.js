@@ -293,7 +293,12 @@ export function clearLevels () {
 
 	return function (dispatch, getState) {
 
-
+		dispatch ({
+			type : actionConstants.SET_GAME_STATUS_FLAGS,
+			flags : {
+				isLevelFetched :false
+			}
+		});
 		dispatch ({
 
 			type : actionConstants.CLEAR_LEVELS,
