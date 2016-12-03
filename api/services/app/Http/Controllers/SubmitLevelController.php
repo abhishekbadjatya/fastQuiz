@@ -44,7 +44,6 @@ class SubmitLevelController extends Controller {
 
 			$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
 			//return $correctOptionIds;
-			$k = 0;
 			$countOfCorrect = 0;
 			$countOfTotal = 0;
 			$obj1 = new stdClass();
