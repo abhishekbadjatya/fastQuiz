@@ -87,4 +87,24 @@ class User extends Model
                         return null;
         return $userval;
     }
+
+    public static function updateUserMaxLevelandScore($usercred, $currentScore, $currentLevel){
+        $userval=User::where('userName', '=',$usercred)->get()->toArray();
+        /*print($userval[0]['maxLevelReached']);
+        print($currentLevel);
+        print($currentScore);
+        */
+        if($currentLevel > $userval[0]['maxLevelReached']){
+
+            $affectedRows= User::where('userName', '=',$usercred)->update(array('maxLevelReached' => $currentLevel));
+        }
+        if($currentScore > $userval[0]['maxScore']){
+
+            $affectedRows= User::where('userName', '=',$usercred)->update(array('maxScore' => $currentScore));
+        }
+        //return true;
+  }
+    
+
+    
 }

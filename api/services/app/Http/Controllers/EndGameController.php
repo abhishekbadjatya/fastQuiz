@@ -22,65 +22,71 @@ class EndGameController extends Controller {
 	
 	public static function index() {
 
-		$payload = Input::all();
+		if(Session::has('username')){
 
-		$payLoadAnswers = $payload['answers'];
+			$payload = Input::all();
 
-		$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
-		$k = 0;
-		$countOfCorrect = 0;
-		$countOfTotal = 0;
-		$obj1 = new stdClass();
-		$obj1->correctAnswers = array ();
+			$payLoadAnswers = $payload['answers'];
 
-		$questionIdArr = array();
-		foreach ($payLoadAnswers as $answer){
-			array_push($questionIdArr, array('questionId' => $answer['questionId'], 'optionId' => $answer['optionId']));
-		}
-		asort($questionIdArr);
-		
-		foreach ($questionIdArr as $answer){
-			$countOfTotal++;
-			$dbElement = $correctOptionIds[$answer['questionId']];
-			$payloadElement = $answer['optionId'];
-			if($dbElement == $payloadElement){
-				$countOfCorrect++;
+			$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
+			$k = 0;
+			$countOfCorrect = 0;
+			$countOfTotal = 0;
+			$obj1 = new stdClass();
+			$obj1->correctAnswers = array ();
+
+			$questionIdArr = array();
+			foreach ($payLoadAnswers as $answer){
+				array_push($questionIdArr, array('questionId' => $answer['questionId'], 'optionId' => $answer['optionId']));
 			}
+			asort($questionIdArr);
 			
-		    array_push($obj1->correctAnswers, array (
+			foreach ($questionIdArr as $answer){
+				$countOfTotal++;
+				$dbElement = $correctOptionIds[$answer['questionId']];
+				$payloadElement = $answer['optionId'];
+				if($dbElement == $payloadElement){
+					$countOfCorrect++;
+				}
+				
+			    array_push($obj1->correctAnswers, array (
 
-		    		"questionId" => $answer['questionId'],
-		    		"correctAnswerOptionId" => $dbElement 
-		    	));
-		}
+			    		"questionId" => $answer['questionId'],
+			    		"correctAnswerOptionId" => $dbElement 
+			    	));
+			}
 
-		$percent = $countOfCorrect/$countOfTotal;
+			$percent = $countOfCorrect/$countOfTotal;
 
-		if(Session::has('score')){
-			//echo 'Initial: ' . Session::get('score'). '<br/>';
-			$updatedScore = Session::get('score') + $countOfCorrect;
-			//Session::forget('score');
-			Session::put('score', $updatedScore);
-			//echo Session::get('score');
+			if(Session::has('score')){
+				//echo 'Initial: ' . Session::get('score'). '<br/>';
+				$updatedScore = Session::get('score') + $countOfCorrect;
+				//Session::forget('score');
+				Session::put('score', $updatedScore);
+				//echo Session::get('score');
+			}
+			else {
+				//echo 'entered else';
+				Session::put('score', $countOfCorrect);
+			}
+
+			$currentLevel = $payload['level'];
+			$nextLevel = $currentLevel + 1;
+			$maxLevel = Levels::getMaxLevel();
+			$totalScore = Session::get('score');
+
+
+			$obj = new stdClass();
+			$obj->isGameOver = true;
+			$obj->score = $countOfCorrect;
+			$obj->totalScore = $totalScore;
+			$obj->totalNoOfQuestionsInCurrentLevel = $countOfTotal;
+			$obj->previous = array('correctAnswers' => $obj1->correctAnswers);
+		
+			return \Response::json($obj);
 		}
 		else {
-			//echo 'entered else';
-			Session::put('score', $countOfCorrect);
+			return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));	
 		}
-
-		$currentLevel = $payload['level'];
-		$nextLevel = $currentLevel + 1;
-		$maxLevel = Levels::getMaxLevel();
-		$totalScore = Session::get('score');
-
-
-		$obj = new stdClass();
-		$obj->isGameOver = true;
-		$obj->score = $countOfCorrect;
-		$obj->totalScore = $totalScore;
-		$obj->totalNoOfQuestionsInCurrentLevel = $countOfTotal;
-		$obj->previous = array('correctAnswers' => $obj1->correctAnswers);
-	
-		return \Response::json($obj);
 	}
 }
