@@ -27,7 +27,8 @@ let initialState = () => {
 				
 
 			},
-			levels : []
+			levels : [],
+			previous :{}
 
 
 		},

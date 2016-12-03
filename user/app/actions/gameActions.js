@@ -185,7 +185,6 @@ export function submitCurrentLevelAnswers () {
 				isLevelFetched :false
 			}
 		});
-
 		kfetch(urlConstants.submitLevel, {
 
 			method :'POST',
@@ -200,6 +199,14 @@ export function submitCurrentLevelAnswers () {
 
 
 			if (!json.error) {
+
+				dispatch ({
+					type: actionConstants.SET_PREVIOUS_ANSWERS,
+					payload : {
+						level : getState().game.status.currentLevel,
+						correctAnswers: json.previous.correctAnswers
+					}
+				});
 
 
 				if (!json.isGameOver) {
@@ -229,6 +236,7 @@ export function submitCurrentLevelAnswers () {
 							type : actionConstants.ADD_NEW_LEVEL,
 							payload : json.next
 						});
+
 
 						dispatch ({
 							type : actionConstants.SET_GAME_STATUS_FLAGS,

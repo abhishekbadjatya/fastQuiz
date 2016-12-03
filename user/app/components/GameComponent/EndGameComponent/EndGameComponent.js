@@ -3,6 +3,8 @@ import CSSModules from 'react-css-modules';
 import EndGameComponentStyles from './assets/EndGameComponent.scss';
 import {hashHistory} from 'react-router';
 
+import {getPreviousAnswers} from '../../../util/util.js';
+
 
 class EndGameComponent extends React.Component {
 
@@ -20,8 +22,40 @@ class EndGameComponent extends React.Component {
 		this.props.actions.clearLevels();
 		hashHistory.push('dashboard');
 	}
+
+	getView (previousLevelObject) {
+
+		return previousLevelObject.questions.map ((singleQuestion) => {
+
+			return (
+				<div key = {singleQuestion.questionId}>
+					<div>
+						{singleQuestion.questionId} : {singleQuestion.questionText}
+
+					</div>
+
+					<div>
+						You Answered : {singleQuestion.chosenOptionText.optionLabel}
+
+					</div>
+
+					<div>
+						Correct Answer : {singleQuestion.correctOptionText.optionLabel}
+
+					</div>
+				</div>
+
+
+				);
+
+
+		});
+	}
+	
 	render () {
 		let {totalScore} = this.props.status;
+		let previousLevelObject = getPreviousAnswers (this.props.levels, this.props.previous);
+		let previousAnswersDOM = this.getView (previousLevelObject);
 		return (
 			<div>
 				<div>
@@ -35,6 +69,12 @@ class EndGameComponent extends React.Component {
 					onClick = {()=>this.onClickDashboardHandler()}
 
 					 />
+				</div>
+				<div>
+					Review
+					<div>
+					{previousAnswersDOM}
+					</div>
 				</div>
 			</div>
 			);
