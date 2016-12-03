@@ -71,7 +71,7 @@ class BaseComponent extends React.Component {
 					{
 									(isLoggedIn) ? 
 										(
-											<div className = 'col-xs-1'>
+											<div className = 'col-xs-2'>
 												<div styleName ='pointer' onClick = {() => this.onClickDashboardHandler()}>
 													Dashboard
 												</div>
@@ -88,7 +88,7 @@ class BaseComponent extends React.Component {
 
 					}
 					
-					<div className = 'col-xs-11'>
+					<div className = 'col-xs-10'>
 						{this.props.children}
 					</div>
 

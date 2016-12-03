@@ -48,6 +48,7 @@ class UpdatePasswordComponent extends React.Component {
 
 		}
 
+
 		if (this.newpasswordCopyRefSave.value != this.newpasswordRefSave.value) {
 			this.props.triggerNotification ({
 
@@ -55,6 +56,16 @@ class UpdatePasswordComponent extends React.Component {
 				"message" : "Passwords don't match."
 			});
 			return
+		}
+		if (this.newpasswordRefSave.value == this.oldpasswordRefSave.value)  {
+
+			this.props.triggerNotification ({
+
+				"level" : "error",
+				"message" : "New password and old password can't match."
+			});
+			return
+
 		}
 
 		if (!_.trim(this.newpasswordRefSave.value)) {
