@@ -29,7 +29,6 @@ class EndGameController extends Controller {
 			$payLoadAnswers = $payload['answers'];
 
 			$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
-			$k = 0;
 			$countOfCorrect = 0;
 			$countOfTotal = 0;
 			$obj1 = new stdClass();
@@ -56,8 +55,7 @@ class EndGameController extends Controller {
 			    	));
 			}
 
-			$percent = $countOfCorrect/$countOfTotal;
-
+			
 			if(Session::has('score')){
 				//echo 'Initial: ' . Session::get('score'). '<br/>';
 				$updatedScore = Session::get('score') + $countOfCorrect;
@@ -71,8 +69,7 @@ class EndGameController extends Controller {
 			}
 
 			$currentLevel = $payload['level'];
-			$nextLevel = $currentLevel + 1;
-			$maxLevel = Levels::getMaxLevel();
+			//$maxLevel = Levels::getMaxLevel();
 			$totalScore = Session::get('score');
 
 
