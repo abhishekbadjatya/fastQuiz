@@ -28,8 +28,6 @@ class User extends Model
      *
      * @var array
      */
-    protected $hidden = ['maxLevelReached','maxScore',
-    ];
 
     public static function logincheck($usercred)
     {
@@ -71,4 +69,42 @@ class User extends Model
                         return false;
         return true;
     }
+
+    public static function changePassword($usercred,$data)
+    {
+        $userval=User::where('userName', '=',$usercred)->get()->toArray();
+        if(!Hash::check($data['oldpassword'],$userval[0]['password']))
+                return false;
+       $affectedRows= User::where('userName', '=',$usercred)->update(array('password' => Hash::make($data['newpassword'])));
+        if(count($affectedRows)==0)
+                        return false;
+        return true;
+    }
+    public static function getLeaderboard()
+    {
+        $userval=User::orderBy('maxScore','DESC')->select('userName','userId','maxLevelReached','maxScore')->get()->toArray();
+        if(count($userval)==0)
+                        return null;
+        return $userval;
+    }
+
+    public static function updateUserMaxLevelandScore($usercred, $currentScore, $currentLevel){
+        $userval=User::where('userName', '=',$usercred)->get()->toArray();
+        /*print($userval[0]['maxLevelReached']);
+        print($currentLevel);
+        print($currentScore);
+        */
+        if($currentLevel > $userval[0]['maxLevelReached']){
+
+            $affectedRows= User::where('userName', '=',$usercred)->update(array('maxLevelReached' => $currentLevel));
+        }
+        if($currentScore > $userval[0]['maxScore']){
+
+            $affectedRows= User::where('userName', '=',$usercred)->update(array('maxScore' => $currentScore));
+        }
+        //return true;
+  }
+    
+
+    
 }

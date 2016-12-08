@@ -72,7 +72,7 @@ export function checkInit () {
 export function login (username, password) {
 
 
-	return function (dispatch, getState) {
+	return function (dispatch) {
 
 		
 
@@ -134,15 +134,10 @@ export function login (username, password) {
 }
 
 
-function checkAndDispatchIfFieldsEmptyForSignUp (payload, dispatch) {
-
-
-	
-}
 
 export function signUp (payload)  {
 
-	return function (dispatch, getState)  {
+	return function (dispatch)  {
 		
 		payload.userName = payload.username;
 		payload.emailId = "sample";
@@ -180,7 +175,7 @@ export function signUp (payload)  {
 
 
 			} else {
-				if (json.error = "USERNAME_TAKEN") {
+				if (json.error == "USERNAME_TAKEN") {
 					dispatch(triggerNotification({
 
 						"level" : "error",
@@ -204,7 +199,7 @@ export function signUp (payload)  {
 
 export function logout () {
 
-	return function (dispatch, getState)  {
+	return function (dispatch)  {
 
 		kfetch(urlConstants.logout)
 		.then((response) => {

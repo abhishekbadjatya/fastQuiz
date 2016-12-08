@@ -10,7 +10,9 @@ let urlConstants = () => {
 		"submitLevel" : baseUrl + 'submitLevel',
 		"init" : baseUrl + 'authz/getsession',
 		"signUp" : baseUrl + '/authz/signup',
-		"logout" : baseUrl + '/authz/logout'
+		"logout" : baseUrl + '/authz/logout',
+        "leaderboard" : baseUrl+'getLeaderboard',
+        "updatePassword": baseUrl + 'changePassword'
 	};
 
 

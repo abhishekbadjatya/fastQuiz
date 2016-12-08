@@ -44,13 +44,28 @@ class GameComponent extends React.Component {
 
 			case 'ACTIVE_QUIZ' : return {game:this.props.game, actions: this.props.gameActions}
 								break;
-			case 'MID_LEVEL' :  return {status: this.props.game.status, actions : this.props.gameActions};
+			case 'MID_LEVEL' :  return {
+										status: this.props.game.status,
+										levels:this.props.game.levels,
+										previous : this.props.game.previous,
+										actions : this.props.gameActions
+
+										};
 								break;
-			case  'END_GAME' : return {status: this.props.game.status, actions : this.props.gameActions}
+			case  'END_GAME' : return {
+										status: this.props.game.status,
+										levels:this.props.game.levels,
+										previous : this.props.game.previous,
+										actions : this.props.gameActions
+
+										};
 								break;
 			default : return {game:this.props.game, actions: this.props.gameActions}
 		}
 
+	}
+	componentWillUnmount() {
+		this.props.gameActions.clearLevels();
 	}
 	render () {
 

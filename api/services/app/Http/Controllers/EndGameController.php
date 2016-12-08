@@ -17,33 +17,18 @@ use Session;
 use App\Levels;
 use App\Options;
 use App\Questions;
-use App\User;
 
-class SubmitLevelController extends Controller {
+class EndGameController extends Controller {
 	
 	public static function index() {
 
 		if(Session::has('username')){
+
 			$payload = Input::all();
 
 			$payLoadAnswers = $payload['answers'];
-			$currentLevel = $payload['level'];
-
-
-			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
-			//return $currentLevelQuestionIds;
-			foreach ($payLoadAnswers as $answer) {
-				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
-					//return $answer['questionId'];
-					//return $currentLevelQuestionIds;
-					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
-				}
-			}
-
-	//check if the question ids given are valid question ids or not
 
 			$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
-			//return $correctOptionIds;
 			$countOfCorrect = 0;
 			$countOfTotal = 0;
 			$obj1 = new stdClass();
@@ -70,8 +55,7 @@ class SubmitLevelController extends Controller {
 			    	));
 			}
 
-			$percent = $countOfCorrect/$countOfTotal;
-
+			
 			if(Session::has('score')){
 				//echo 'Initial: ' . Session::get('score'). '<br/>';
 				$updatedScore = Session::get('score') + $countOfCorrect;
@@ -84,38 +68,22 @@ class SubmitLevelController extends Controller {
 				Session::put('score', $countOfCorrect);
 			}
 
-			
-			$nextLevel = $currentLevel + 1;
-			$maxLevel = Levels::getMaxLevel();
+			$currentLevel = $payload['level'];
+			//$maxLevel = Levels::getMaxLevel();
 			$totalScore = Session::get('score');
 
 
 			$obj = new stdClass();
-			if($currentLevel == $maxLevel){
-				$obj->isGameOver = true;
-				$updateRes1 = User::updateUserMaxLevelandScore(Session::get('username'), Session::get('score'), $currentLevel);
-			} else {
-				$obj->isGameOver = false;
-			}
+			$obj->isGameOver = true;
 			$obj->score = $countOfCorrect;
 			$obj->totalScore = $totalScore;
 			$obj->totalNoOfQuestionsInCurrentLevel = $countOfTotal;
 			$obj->previous = array('correctAnswers' => $obj1->correctAnswers);
-
-			if($percent > 0.5){
-				$obj->hasQualified = true;
-				$obj->next = Questions::getQuestionsOfLevel($nextLevel);
-				return \Response::json($obj);
-			}
-			else{
-				$obj->hasQualified = false;
-				$updateRes = User::updateUserMaxLevelandScore(Session::get('username'), Session::get('score'), $currentLevel);
-				return \Response::json($obj);
-			}
+		
+			return \Response::json($obj);
 		}
 		else {
 			return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));	
 		}
 	}
 }
-

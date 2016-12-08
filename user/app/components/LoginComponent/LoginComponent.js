@@ -2,6 +2,7 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import LoginStyle from './assets/LoginComponent.scss';
 import {hashHistory} from 'react-router';
+import _ from 'lodash';
 
 
 class LoginComponent extends React.Component {
@@ -40,6 +41,7 @@ class LoginComponent extends React.Component {
 		let username = this.usernameRef.value; 
 		let password = this.passwordRef.value;
 
+
 		if (!username || !password) {
 
 			this.props.triggerNotification({
@@ -48,12 +50,27 @@ class LoginComponent extends React.Component {
 
 			});
 
-		} else {
-
-			let {login} = this.props;
-			login (username, password);
+			return;
 
 		}
+
+		if (_.trim(username) !=  username) {
+
+			this.props.triggerNotification({
+				level : 'error',
+				message : "No leading or trailing spaces in username"
+
+			});
+
+			return;
+
+		}
+
+
+		let {login} = this.props;
+		login (username, password);
+
+		
 		
 	}
 

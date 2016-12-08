@@ -16,6 +16,8 @@ class AuthZController extends Controller
     public function loggingin()
     {
         $data = Input::all();
+        #return Response(json_encode($data));
+        $data['userName'] = trim($data['userName']);
         if($data['password']==''||$data['userName']=='')
             return Response(json_encode([
             'error' => 'MALFORMED_JSON']),400);
@@ -38,6 +40,12 @@ class AuthZController extends Controller
     public function signup()
     {
         $data = Input::all();
+        $user=trim($data['userName']);
+        $data['userName'] = trim($data['userName']);
+        //if($user.length<$data['userName'].length)
+            //return Response(json_encode([
+            //'error' => 'MALFORMED_JSON']),400);
+        //$data['password'] = trim($data['password']);
         if($data['password']==''||$data['userName']=='')
             return Response(json_encode([
             'error' => 'MALFORMED_JSON']),400);
@@ -81,5 +89,44 @@ class AuthZController extends Controller
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
     }
-    
+    public function changePassword()
+    {
+        if(Session::has('username')){
+
+            $data = Input::all();
+            $resp= User::changePassword(Session::get('username'),$data);
+            if($resp==true) {
+
+                $usercred=[
+                    'userName' => Session::get('username'),
+                    'password' => "",
+                ];
+                return Response(json_encode($usercred));
+            
+            } else {
+
+                return Response(json_encode(["error" =>"INCORRECT_PASSWORD"]));
+            }
+        }
+        else
+            return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
+    }
+
+    public function getLeaderboard()
+    {
+        if(Session::has('username'))
+            {  
+               $resp= User::getLeaderboard();
+               if($resp!=null)
+               {
+               
+               return Response(json_encode($resp));
+            
+            }
+            else
+                return Response(json_encode(["error" =>"No Data found"]));
+        }
+        else
+            return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
+    }
 }

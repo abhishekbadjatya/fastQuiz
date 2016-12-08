@@ -1,15 +1,14 @@
 import urlConstants from '../constants/urlConstants.js';
 import {serialize} from '../util/util.js';
 import actionConstants from '../constants/actionConstants.js';
-import {hashHistory} from 'react-router';
 import _ from 'lodash';
 import {kfetch} from '../util/util.js';
 
 
-export function fetchNewGame (username, password) {
+export function fetchNewGame () {
 
 
-	return function (dispatch, getState) {
+	return function (dispatch) {
 
 		kfetch(urlConstants.newGame)
 		.then((response) => {
@@ -55,7 +54,7 @@ export function fetchNewGame (username, password) {
 export function changeGameComponentScreenType (screen) {
 
 
-	return function (dispatch, getState) {
+	return function (dispatch) {
 		dispatch ({
 			type : actionConstants.SET_GAME_STATUS_FLAGS,
 			flags : {
@@ -99,7 +98,7 @@ export function nextQuestion () {
 
 			if (singleLevel.level == currentLevel) {
 
-				for (var i = 0; i <singleLevel.questions.length ; i++) {
+				for (let i = 0; i <singleLevel.questions.length ; i++) {
 
 					if (singleLevel.questions[i].questionId == currentQuestionId) {
 
@@ -185,7 +184,6 @@ export function submitCurrentLevelAnswers () {
 				isLevelFetched :false
 			}
 		});
-
 		kfetch(urlConstants.submitLevel, {
 
 			method :'POST',
@@ -200,6 +198,14 @@ export function submitCurrentLevelAnswers () {
 
 
 			if (!json.error) {
+
+				dispatch ({
+					type: actionConstants.SET_PREVIOUS_ANSWERS,
+					payload : {
+						level : getState().game.status.currentLevel,
+						correctAnswers: json.previous.correctAnswers
+					}
+				});
 
 
 				if (!json.isGameOver) {
@@ -221,7 +227,7 @@ export function submitCurrentLevelAnswers () {
 
 						dispatch ({
 
-							type : actionConstants.CLEAR_STATUS_FLAGS,
+							type : actionConstants.CLEAR_STATUS_FLAGS
 
 						});
 						dispatch ({
@@ -229,6 +235,7 @@ export function submitCurrentLevelAnswers () {
 							type : actionConstants.ADD_NEW_LEVEL,
 							payload : json.next
 						});
+
 
 						dispatch ({
 							type : actionConstants.SET_GAME_STATUS_FLAGS,
@@ -276,12 +283,12 @@ export function submitCurrentLevelAnswers () {
 
 export function clearStatusesFlags () {
 
-	return function (dispatch, getState) {
+	return function (dispatch) {
 
 
 		dispatch ({
 
-			type : actionConstants.CLEAR_STATUS_FLAGS,
+			type : actionConstants.CLEAR_STATUS_FLAGS
 
 		});
 
@@ -291,12 +298,17 @@ export function clearStatusesFlags () {
 
 export function clearLevels () {
 
-	return function (dispatch, getState) {
-
+	return function (dispatch) {
 
 		dispatch ({
+			type : actionConstants.SET_GAME_STATUS_FLAGS,
+			flags : {
+				isLevelFetched :false
+			}
+		});
+		dispatch ({
 
-			type : actionConstants.CLEAR_LEVELS,
+			type : actionConstants.CLEAR_LEVELS
 
 		});
 

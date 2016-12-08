@@ -27,10 +27,14 @@ let initialState = () => {
 				
 
 			},
-			levels : []
+			levels : [],
+			previous :{}
 
 
 		},
+
+		"leaderboard" : []
+		
 
 	};
 

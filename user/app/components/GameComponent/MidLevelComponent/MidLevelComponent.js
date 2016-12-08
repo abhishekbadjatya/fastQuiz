@@ -2,6 +2,9 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import MidLevelComponentStyles from './assets/MidLevelComponent.scss';
 import {hashHistory} from 'react-router';
+import _ from 'lodash';
+
+import {getPreviousAnswers} from '../../../util/util.js';
 
 class MidLevelComponent extends React.Component {
 
@@ -24,10 +27,43 @@ class MidLevelComponent extends React.Component {
 		this.props.actions.changeGameComponentScreenType ("ACTIVE_QUIZ");
 	}
 
+	getView (previousLevelObject) {
+
+		return previousLevelObject.questions.map ((singleQuestion) => {
+
+			return (
+				<div key = {singleQuestion.questionId}>
+					<div>
+						{singleQuestion.questionId} : {singleQuestion.questionText}
+
+					</div>
+
+					<div>
+						You Answered : {singleQuestion.chosenOptionText.optionLabel}
+
+					</div>
+
+					<div>
+						Correct Answer : {singleQuestion.correctOptionText.optionLabel}
+
+					</div>
+				</div>
+
+
+				);
+
+
+		});
+	}
+	
 	
 	render () {
 
 		let {hasQualified, previousScore} = this.props.status
+
+		let previousLevelObject = getPreviousAnswers (this.props.levels, this.props.previous);
+		let previousAnswersDOM = this.getView (previousLevelObject);
+
 		return (
 
 			<div>
@@ -51,11 +87,15 @@ class MidLevelComponent extends React.Component {
 							<div>
 								Congratulations, you have qualified for the next level.
 								Score {previousScore}
+
+
 								<div>
 									<input type = 'button' className = 'btn btn-primary' 
 									onClick = {()=> this.onClickNextLevelHandler()}
 									value = 'Next Level' />
 								</div>
+
+
 							</div>
 
 
@@ -65,7 +105,12 @@ class MidLevelComponent extends React.Component {
 
 
 				}
-
+				<div>
+					Review
+					<div>
+					{previousAnswersDOM}
+					</div>
+				</div>
 				
 			</div>
 		);

@@ -2,6 +2,8 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import BaseStyle from './assets/BaseComponent.scss';
 import NotificationSystem from 'react-notification-system';
+import {hashHistory} from 'react-router';
+import urlConstants from '../../constants/urlConstants.js';
 
 
 class BaseComponent extends React.Component {
@@ -27,8 +29,17 @@ class BaseComponent extends React.Component {
 		}
 	
 
-		
+	}
+	onClickLeaderboardHandler () {
+		hashHistory.push('leaderboard');
+	}
 
+	onClickUserManagementHandler(){
+		hashHistory.push('updatePassword');
+	}
+
+	onClickDashboardHandler(){
+		hashHistory.push('dashboard');
 	}
 
 	render () {
@@ -56,7 +67,32 @@ class BaseComponent extends React.Component {
 
 				<div className = 'col-xs-12'>
 
-					{this.props.children}
+
+					{
+									(isLoggedIn) ? 
+										(
+											<div className = 'col-xs-2'>
+												<div styleName ='pointer' onClick = {() => this.onClickDashboardHandler()}>
+													Dashboard
+												</div>
+												<div styleName ='pointer' onClick = {() => this.onClickLeaderboardHandler()}>
+													Leaderboard
+												</div>
+												<div styleName ='pointer' onClick = {() => this.onClickUserManagementHandler()}>
+													User Management
+												</div>
+											</div>
+										)
+										:
+										(null)
+
+					}
+					
+					<div className = 'col-xs-10'>
+						{this.props.children}
+					</div>
+
+					
 
 				</div>
 
