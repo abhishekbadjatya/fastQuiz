@@ -17,7 +17,7 @@ class PasswordTest extends TestCase
     public function testNoSession () {
 
         $payload = ['oldpassword' => 'a', 'newpassword' => 'ab'];
-        $response = $this->call('PUT','/changePassword', $payload );
+        $response = $this->call('POST','/changePassword', $payload );
         $responseArray =json_decode($response->getOriginalContent(),true);
         $flag = true;
 
@@ -39,9 +39,8 @@ class PasswordTest extends TestCase
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
         $payload = ['oldpassword' => 'ab', 'newpassword' => 'ab'];
-        $response = $this->call('PUT','/changePassword', $payload );
+        $response = $this->call('POST','/changePassword', $payload );
         $responseArray =json_decode($response->getOriginalContent(),true);
-        $flag = true;
         if ( $responseArray ['error']) {
             $flag = true;
         } else {
@@ -56,19 +55,19 @@ class PasswordTest extends TestCase
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
         $payload = ['oldpassword' => 'a', 'newpassword' => 'ab'];
-        $response = $this->call('PUT','/changePassword', $payload );
+        $response = $this->call('POST','/changePassword', $payload );
         $responseArray =json_decode($response->getOriginalContent(),true);
+
         $flag = true;
+        if (  array_key_exists('error', $responseArray) ) {
 
-        if ( $responseArray ['error']) {
-
-            $flag = false;
+            $flag = true;
 
         } else {
-            $flag = true;
+            $flag = false;
         }
 
-        $this->assertEquals(true, $flag);
+        $this->assertEquals(false, $flag);
 
     }
 }

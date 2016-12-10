@@ -14,21 +14,23 @@ class LeaderboardTest extends TestCase
      */
     use DatabaseTransactions;
 
-    public function getLeaderboard () {
+    public function testGetLeaderboard () {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
 
         $response = $this->call('GET','/getLeaderboard' );
         $responseArray =json_decode($response->getOriginalContent(),true);
+
         $flag = true;
+        if (  array_key_exists('error', $responseArray) ) {
 
-        if ( $responseArray ['error']) {
-
-            $flag = false;
+            $flag = true;
 
         } else {
-            $flag = true;
+            $flag = false;
         }
 
-        $this->assertEquals(true, $flag);
+        $this->assertEquals(false, $flag);
 
     }
 }
