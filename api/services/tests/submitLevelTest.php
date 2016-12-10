@@ -135,5 +135,28 @@ class submitLevelTest extends TestCase
              ]);
     }
 
+    public function testNewGameForScore()
+    {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
+        
+        $this->withSession(['score' => 1])->json('GET', '/newGame')
+                ->seeJsonStructure([
+                "level",
+                "questions" => [
+                    "*" => [
+                        "questionId",
+                        "questionText",
+                        "options" => [
+                            "*"=>[
+                                "optionId",
+                        "optionLabel"
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
+    }
+
 
 }
