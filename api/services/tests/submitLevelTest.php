@@ -113,13 +113,25 @@ class submitLevelTest extends TestCase
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
         
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+        $this->withSession(['score' => 1])->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
                                                            ["questionId" => 6,"optionId" => "6"],
                                                            ["questionId" => 4,"optionId" => "8"]
             ],"level" => 2
             ])
              ->seeJson([
                 'isGameOver' => true
+             ]);
+    }
+
+    public function testNoSession () {
+
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+                                                           ["questionId" => 6,"optionId" => "6"],
+                                                           ["questionId" => 4,"optionId" => "8"]
+            ],"level" => 2
+            ])
+             ->seeJson([
+                'error' => 'SESSION_DOES_NOT_EXIST'
              ]);
     }
 

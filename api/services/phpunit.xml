@@ -22,7 +22,7 @@
               <directory suffix=".php">./app/Providers</directory>
               <directory suffix=".php">./app/Http/Middleware</directory>
               <directory suffix=".php">./app/Http/Controllers/Auth</directory>
-              <file>./a[[/Http/Kernal.php</file>
+              <file>./app/Http/Kernal.php</file>
 
             </exclude>
         </whitelist>
