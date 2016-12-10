@@ -31,11 +31,8 @@ class SubmitLevelController extends Controller {
 
 
 			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
-			//return $currentLevelQuestionIds;
 			foreach ($payLoadAnswers as $answer) {
 				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
-					//return $answer['questionId'];
-					//return $currentLevelQuestionIds;
 					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
 				}
 			}

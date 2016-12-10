@@ -27,6 +27,14 @@ class EndGameController extends Controller {
 			$payload = Input::all();
 
 			$payLoadAnswers = $payload['answers'];
+			$currentLevel = $payload['level'];
+
+			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
+			foreach ($payLoadAnswers as $answer) {
+				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
+					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
+				}
+			}
 
 			$correctOptionIds = Options::getCorrectOptionIds($payLoadAnswers); 
 			$countOfCorrect = 0;
@@ -68,7 +76,6 @@ class EndGameController extends Controller {
 				Session::put('score', $countOfCorrect);
 			}
 
-			$currentLevel = $payload['level'];
 			//$maxLevel = Levels::getMaxLevel();
 			$totalScore = Session::get('score');
 
