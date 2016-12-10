@@ -5,14 +5,16 @@ php:
 
 before_script:
   - cd api/services
-  - 
+  - composer self-update
+  - composer install --no-interaction
+  - sudo chmod -R 777 storage
+  - sudo chmod -R 777 bootstrap
   - cp .env.travis .env
   - php artisan key:generate
   - mysql -e 'create database fast_quiz_test;'
   - php artisan migrate
   - php artisan db:seed
-  - composer self-update
-  - composer install --no-interaction
+  
 
 script:
   - vendor/bin/phpunit
