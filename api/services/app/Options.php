@@ -9,9 +9,7 @@ class Options extends Model
 {
     //
     protected $table = 'options';
-	public static function getOptions () {
-		return Options::get()->toArray();
-	}
+
 	public static function getOptionsForQuestions($questions) {
 		$q=join(",",$questions);   
 		//return $q;

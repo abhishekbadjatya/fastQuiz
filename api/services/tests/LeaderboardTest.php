@@ -33,4 +33,11 @@ class LeaderboardTest extends TestCase
         $this->assertEquals(false, $flag);
 
     }
+    public function testNoSession () {
+
+        $this->json('GET', '/getLeaderboard')
+             ->seeJson([
+                'error' => 'SESSION_DOES_NOT_EXIST'
+             ]);
+    }
 }

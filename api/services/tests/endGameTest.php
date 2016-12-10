@@ -73,7 +73,7 @@ class endGameTest extends TestCase
 
     public function testNoSession () {
 
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+        $this->json('POST', '/endGame', ['answers' => [["questionId" => 5,"optionId" => "3"],
                                                            ["questionId" => 6,"optionId" => "6"],
                                                            ["questionId" => 4,"optionId" => "8"]
             ],"level" => 2

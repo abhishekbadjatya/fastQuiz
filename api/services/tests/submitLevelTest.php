@@ -39,9 +39,38 @@ class submitLevelTest extends TestCase
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
 
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "3"],
+        $response = $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
+            ],"level" => 1
+            ])
+             ->seeJsonStructure([
+                "isGameOver",
+                "score",
+                "totalScore",
+                "totalNoOfQuestionsInCurrentLevel",
+                "previous" => [
+                    
+                        "correctAnswers" => [
+                            "*"=>[
+                                "questionId",
+                                "correctAnswerOptionId"
+                            ]
+                        ]
+                    
+                ],
+                "hasQualified" 
+             ]);
+
+    }
+    public function testsubmitLevelRouteUpdatingMaxScoreAndLevel()
+    {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $this->call('POST','/authz/login', $payload );
+
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "1"],
+                                                           ["questionId" => 2,"optionId" => "5"],
+                                                           ["questionId" => 3,"optionId" => "9"]
             ],"level" => 1
             ])
              ->seeJsonStructure([
