@@ -83,7 +83,33 @@ class endGameTest extends TestCase
              ]);
     }
 
-
+    public function testEndGameForScore()
+    {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
+        
+        $this->withSession(['score' => 1])->json('POST', '/endGame', ['answers' => [["questionId" => 1,"optionId" => "3"],
+                                                           ["questionId" => 2,"optionId" => "6"],
+                                                           ["questionId" => 3,"optionId" => "9"]
+            ],"level" => 1
+            ])
+              ->seeJsonStructure([
+                "isGameOver",
+                "score",
+                "totalScore",
+                "totalNoOfQuestionsInCurrentLevel",
+                "previous" => [
+                    
+                        "correctAnswers" => [
+                            "*"=>[
+                                "questionId",
+                                "correctAnswerOptionId"
+                            ]
+                        ]
+                    
+                ]
+             ]);
+    }
 
    
 
