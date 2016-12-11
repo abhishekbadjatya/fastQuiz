@@ -2,6 +2,7 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import ActiveQuizComponentStyle from './assets/ActiveQuizComponent.scss';
 import QuestionComponent from './QuestionComponent/QuestionComponent.js';
+import EndGameButtonComponent from './EndGameButtonComponent/EndGameButtonComponent.js';
 
 class ActiveQuizComponent extends React.Component {
 
@@ -80,6 +81,7 @@ class ActiveQuizComponent extends React.Component {
 				<div styleName = 'level-heading' className = 'col-xs-12 text-left'>
 					Level {status.currentLevel}
 				</div>
+				<EndGameButtonComponent submitCurrentLevelAnswers = {submitCurrentLevelAnswers}/>
 
 				<div className = 'col-xs-12'>
 
