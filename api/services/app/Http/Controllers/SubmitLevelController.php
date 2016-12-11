@@ -30,9 +30,9 @@ class SubmitLevelController extends Controller {
 			$currentLevel = $payload['level'];
 
 
-			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
+			$currentLevelQIds = Questions::getQuestionIdsOfLevel($currentLevel);
 			foreach ($payLoadAnswers as $answer) {
-				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
+				if (!in_array($answer['questionId'], $currentLevelQIds)){
 					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
 				}
 			}
@@ -92,7 +92,7 @@ class SubmitLevelController extends Controller {
 			$obj = new stdClass();
 			if($currentLevel == $maxLevel){
 				$obj->isGameOver = true;
-				$updateRes1 = User::updateUserMaxLevelandScore(Session::get('username'), Session::get('score'), $currentLevel);
+				$updateRes = User::updateUserMaxLevelandScore(Session::get('username'), Session::get('score'), $currentLevel);
 			} else {
 				$obj->isGameOver = false;
 			}

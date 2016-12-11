@@ -29,9 +29,9 @@ class EndGameController extends Controller {
 			$payLoadAnswers = $payload['answers'];
 			$currentLevel = $payload['level'];
 
-			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
+			$currentLevelQIds = Questions::getQuestionIdsOfLevel($currentLevel);
 			foreach ($payLoadAnswers as $answer) {
-				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
+				if (!in_array($answer['questionId'], $currentLevelQIds)){
 					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
 				}
 			}
