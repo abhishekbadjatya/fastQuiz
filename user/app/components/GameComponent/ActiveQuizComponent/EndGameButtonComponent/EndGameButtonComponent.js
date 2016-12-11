@@ -25,6 +25,9 @@ class EndGameButtonComponent extends React.Component {
 	closeButtonModal () {
 		this.props.submitCurrentLevelAnswers();
 	}
+	closeModal () {
+		this.setState({showModal:false});
+	}
 
 	render () {
 
@@ -35,7 +38,7 @@ class EndGameButtonComponent extends React.Component {
 			<button styleName = 'end-button' className = 'btn btn-danger' onClick = {() => this.onClickEndButton()}>
 				End
 			</button>
-			<Modal show={this.state.showModal} onHide={()=>this.closeButtonModal()}>
+			<Modal show={this.state.showModal} onHide={()=>this.closeModal()}>
 				<Modal.Header closeButton>
 	            <Modal.Title>End Game</Modal.Title>
 	          </Modal.Header>
@@ -43,7 +46,8 @@ class EndGameButtonComponent extends React.Component {
 	          	Are you sure you want to end this game?
 	          </Modal.Body>
 	          <Modal.Footer>
-	            <button className = 'btn btn-danger' onClick={()=>this.closeButtonModal()}>Close</button>
+	            <button className = 'btn btn-danger' onClick={()=>this.closeButtonModal()}>Yes</button>
+	            <button className = 'btn btn-success' onClick={()=>this.closeModal()}>Cancel</button>
 	          </Modal.Footer>
         	</Modal>
 
