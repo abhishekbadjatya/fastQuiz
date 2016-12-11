@@ -77,15 +77,14 @@ class AuthZController extends Controller
                if($resp==true)
                {
                $usercred=[
-        'userName' => Session::get('username'),
-        'password' => "",
-        ];
+                'userName' => Session::get('username'),
+                'password' => "",
+                ];
                return Response(json_encode($usercred));
             
-            }
-            else
+                } else
                 return Response(json_encode(["error" => Session::get('username')]));
-        }
+            }
         else
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
     }
@@ -117,16 +116,14 @@ class AuthZController extends Controller
         if(Session::has('username'))
             {  
                $resp= User::getLeaderboard();
-               if($resp!=null)
-               {
                
                return Response(json_encode($resp));
             
+
             }
-            else
-                return Response(json_encode(["error" =>"No Data found"]));
-        }
-        else
+        else{
+            
             return Response(json_encode(["error" => "SESSION_DOES_NOT_EXIST"]));
+        }
     }
 }

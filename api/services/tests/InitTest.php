@@ -52,4 +52,32 @@ class InitTest extends TestCase
 
         $this->assertEquals(true, $flag);
     }
+
+    public function testLogout () {
+
+        $response = $this->call('GET','/authz/logout');
+
+        $this->assertEquals(200, $response->status());
+    }
+
+    public function testWithIncorrectSessionUser () {
+
+        $response = $this->withSession(['username' => 'aghsdvahgsv'])->call('GET','/authz/getsession' );
+        $responseArray =json_decode($response->getOriginalContent(),true);
+
+        $flag = true;
+
+        if ( array_key_exists('error',$responseArray) ) {
+
+            $flag = true;
+
+        } else {
+            $flag = false;
+        }
+
+        $this->assertEquals(true, $flag);
+
+
+
+    }
 }

@@ -14,6 +14,8 @@ class submitLevelTest extends TestCase
     use DatabaseTransactions;
     public function testnewGameRoute()
     {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
         $this->get('/newGame')
              ->seeJsonStructure([
                 "level",
@@ -34,10 +36,41 @@ class submitLevelTest extends TestCase
 
     public function testsubmitLevelRoute()
     {
-        
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "3"],
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
+
+        $response = $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
+            ],"level" => 1
+            ])
+             ->seeJsonStructure([
+                "isGameOver",
+                "score",
+                "totalScore",
+                "totalNoOfQuestionsInCurrentLevel",
+                "previous" => [
+                    
+                        "correctAnswers" => [
+                            "*"=>[
+                                "questionId",
+                                "correctAnswerOptionId"
+                            ]
+                        ]
+                    
+                ],
+                "hasQualified" 
+             ]);
+
+    }
+    public function testsubmitLevelRouteUpdatingMaxScoreAndLevel()
+    {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $this->call('POST','/authz/login', $payload );
+
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "1"],
+                                                           ["questionId" => 2,"optionId" => "5"],
+                                                           ["questionId" => 3,"optionId" => "9"]
             ],"level" => 1
             ])
              ->seeJsonStructure([
@@ -62,7 +95,8 @@ class submitLevelTest extends TestCase
 
     public function testsubmitLevelRouteWithWrongQuestion()
     {
-        
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
         $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
@@ -75,6 +109,8 @@ class submitLevelTest extends TestCase
 
     public function testhasQualifiedFalse()
     {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
         $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
@@ -87,6 +123,8 @@ class submitLevelTest extends TestCase
 
     public function testhasQualifiedTrue()
     {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
         $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "1"],
                                                            ["questionId" => 2,"optionId" => "5"],
                                                            ["questionId" => 3,"optionId" => "8"]
@@ -99,10 +137,12 @@ class submitLevelTest extends TestCase
     
 
 
-public function testisGameOverTrueForLastLevel()
+    public function testisGameOverTrueForLastLevel()
     {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
         
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+        $this->withSession(['score' => 1])->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
                                                            ["questionId" => 6,"optionId" => "6"],
                                                            ["questionId" => 4,"optionId" => "8"]
             ],"level" => 2
@@ -110,6 +150,41 @@ public function testisGameOverTrueForLastLevel()
              ->seeJson([
                 'isGameOver' => true
              ]);
+    }
+
+    public function testNoSession () {
+
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+                                                           ["questionId" => 6,"optionId" => "6"],
+                                                           ["questionId" => 4,"optionId" => "8"]
+            ],"level" => 2
+            ])
+             ->seeJson([
+                'error' => 'SESSION_DOES_NOT_EXIST'
+             ]);
+    }
+
+    public function testNewGameForScore()
+    {
+        $payload = ['userName' => 'abhi3', 'password' => 'a'];
+        $response = $this->call('POST','/authz/login', $payload );
+        
+        $this->withSession(['score' => 1])->json('GET', '/newGame')
+                ->seeJsonStructure([
+                "level",
+                "questions" => [
+                    "*" => [
+                        "questionId",
+                        "questionText",
+                        "options" => [
+                            "*"=>[
+                                "optionId",
+                        "optionLabel"
+                            ]
+                        ]
+                    ]
+                ]
+            ]);
     }
 
 

@@ -10,9 +10,7 @@ class Questions extends Model
 {
     //
     protected $table = 'questions';
-	public static function getQuestions () {
-		return Questions::get()->toArray();
-	}
+
 	public static function getQuestionIdsOfLevel ($level) {
 		//return Questions::where('questionLevel', '=', $level)->select('questionId')->get()->toArray();
 		$result = DB::table('questions')

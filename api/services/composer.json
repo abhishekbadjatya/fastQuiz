@@ -18,7 +18,8 @@
         "symfony/dom-crawler": "3.1.*",
         "phpmd/phpmd" : "@stable",
         "xethron/migrations-generator": "dev-l5",
-        "way/generators": "dev-feature/laravel-five-stable"
+        "way/generators": "dev-feature/laravel-five-stable",
+        "phpunit/php-code-coverage": "^4.0"
     },
     "autoload": {
         "classmap": [

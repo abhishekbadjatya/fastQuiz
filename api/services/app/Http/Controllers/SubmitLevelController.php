@@ -31,11 +31,8 @@ class SubmitLevelController extends Controller {
 
 
 			$currentLevelQuestionIds = Questions::getQuestionIdsOfLevel($currentLevel);
-			//return $currentLevelQuestionIds;
 			foreach ($payLoadAnswers as $answer) {
 				if (!in_array($answer['questionId'], $currentLevelQuestionIds)){
-					//return $answer['questionId'];
-					//return $currentLevelQuestionIds;
 					return \Response::json(array('ERROR'=>"QUESTION NOT IN CURRENT LEVEL"));
 				}
 			}
@@ -71,18 +68,20 @@ class SubmitLevelController extends Controller {
 			}
 
 			$percent = $countOfCorrect/$countOfTotal;
+			
 
 			if(Session::has('score')){
-				//echo 'Initial: ' . Session::get('score'). '<br/>';
+
 				$updatedScore = Session::get('score') + $countOfCorrect;
-				//Session::forget('score');
+
 				Session::put('score', $updatedScore);
-				//echo Session::get('score');
+
 			}
 			else {
 				//echo 'entered else';
 				Session::put('score', $countOfCorrect);
 			}
+
 
 			
 			$nextLevel = $currentLevel + 1;
@@ -105,6 +104,7 @@ class SubmitLevelController extends Controller {
 			if($percent > 0.5){
 				$obj->hasQualified = true;
 				$obj->next = Questions::getQuestionsOfLevel($nextLevel);
+				$updateRes = User::updateUserMaxLevelandScore(Session::get('username'), Session::get('score'), $currentLevel);
 				return \Response::json($obj);
 			}
 			else{
