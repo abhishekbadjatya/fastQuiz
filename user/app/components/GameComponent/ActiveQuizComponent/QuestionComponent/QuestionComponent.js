@@ -12,8 +12,10 @@ class QuestionComponent extends React.Component {
 		this.onNextClickButtonHandler = this.onNextClickButtonHandler.bind(this);
 		this.onSubmitClickButtonHandler = this.onSubmitClickButtonHandler.bind(this);
 		this.state = {
-			'optionSelected' : false
+			'optionSelected' : false,
+			'timer' : 10
 		};
+		this.tick = this.tick.bind(this);
 	}
 	onClickOptionsHandler (e) {
 
@@ -32,7 +34,8 @@ class QuestionComponent extends React.Component {
 
 			this.props.nextQuestion ();
 			this.setState({
-				"optionSelected" : false
+				"optionSelected" : false,
+				timer:10
 
 			});
 
@@ -56,8 +59,10 @@ class QuestionComponent extends React.Component {
 		if (this.state.optionSelected) {
 
 			this.props.submitCurrentLevelAnswers ();
+
 			this.setState({
-				"optionSelected" : false
+				"optionSelected" : false,
+				timer:10
 
 			});
 
@@ -104,6 +109,32 @@ class QuestionComponent extends React.Component {
 			);
 
 	}
+	tick () {
+
+		this.setState({timer: this.state.timer -1});
+		if (this.state.timer <=0) {
+			
+			clearInterval(this.interval);
+			this.setState({timer:10});
+			this.interval = setInterval(this.tick, 1000);
+			
+			if (this.props.isLastQuestionOfLevel) {
+				this.props.submitCurrentLevelAnswers();
+
+			} else {
+				this.props.nextQuestion();
+			}
+
+		}
+	}
+
+	componentDidMount() {
+		this.interval = setInterval(this.tick, 1000);
+	}
+	componentWillUnmount() {
+
+		clearInterval(this.interval);
+	}
 	
 
 	render () {
@@ -133,6 +164,9 @@ class QuestionComponent extends React.Component {
 					 	<span className="glyphicon glyphicon-chevron-right"></span>
 					 </button>
 					}
+				</div>
+				<div>
+					Timer : {this.state.timer}
 				</div>
 			</div>
 			);

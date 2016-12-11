@@ -39,7 +39,7 @@ class MidLevelComponent extends React.Component {
 					</div>
 
 					<div>
-						You Answered : {singleQuestion.chosenOptionText.optionLabel}
+						You Answered : { (singleQuestion.chosenOptionText) ? singleQuestion.chosenOptionText.optionLabel : "Not attempted."}
 
 					</div>
 
