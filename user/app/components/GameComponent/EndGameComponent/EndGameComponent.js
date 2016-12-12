@@ -28,7 +28,7 @@ class EndGameComponent extends React.Component {
 		return previousLevelObject.questions.map ((singleQuestion) => {
 
 			return (
-				<div key = {singleQuestion.questionId}>
+				<div styleName = 'card' key = {singleQuestion.questionId}>
 					<div>
 						{singleQuestion.questionId} : {singleQuestion.questionText}
 
