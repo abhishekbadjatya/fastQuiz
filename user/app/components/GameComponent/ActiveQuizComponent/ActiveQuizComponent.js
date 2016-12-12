@@ -78,7 +78,7 @@ class ActiveQuizComponent extends React.Component {
 			let {selectedOption, nextQuestion, submitCurrentLevelAnswers} = this.props.actions;
 			return (
 			<div>
-				<div styleName = 'level-heading' className = 'col-xs-12 text-left'>
+				<div styleName = 'level-heading' className = 'text-left'>
 					Level {status.currentLevel}
 				</div>
 				<EndGameButtonComponent submitCurrentLevelAnswers = {submitCurrentLevelAnswers}/>

@@ -59,7 +59,7 @@ class MidLevelComponent extends React.Component {
 	
 	render () {
 
-		let {hasQualified, previousScore} = this.props.status
+		let {hasQualified, previousScore, totalNoOfQuestionsInCurrentLevel} = this.props.status
 
 		let previousLevelObject = getPreviousAnswers (this.props.levels, this.props.previous);
 		let previousAnswersDOM = this.getView (previousLevelObject);
@@ -74,7 +74,7 @@ class MidLevelComponent extends React.Component {
 						(<div>
 
 							Sorry, you have not qualified.
-							Score {previousScore}
+							Score {previousScore}/{totalNoOfQuestionsInCurrentLevel}
 							<div>
 								<input type = 'button' className = 'btn btn-primary' 
 								onClick = {()=> this.onClickDashboardHandler()}
@@ -86,7 +86,7 @@ class MidLevelComponent extends React.Component {
 						(
 							<div>
 								Congratulations, you have qualified for the next level.
-								Score {previousScore}
+								Score {previousScore}/{totalNoOfQuestionsInCurrentLevel}
 
 
 								<div>

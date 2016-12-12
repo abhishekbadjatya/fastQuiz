@@ -65,20 +65,20 @@ class BaseComponent extends React.Component {
 				<NotificationSystem ref={(ref) => this.notificationRef = ref} />
 				</div>
 
-				<div className = 'col-xs-12'>
+				<div styleName = 'main-app'>
 
 
 					{
 									(isLoggedIn) ? 
 										(
-											<div className = 'col-xs-2'>
-												<div styleName ='pointer' onClick = {() => this.onClickDashboardHandler()}>
+											<div styleName = 'sidebar'>
+												<div styleName ='pointer item' onClick = {() => this.onClickDashboardHandler()}>
 													Dashboard
 												</div>
-												<div styleName ='pointer' onClick = {() => this.onClickLeaderboardHandler()}>
+												<div styleName ='pointer item' onClick = {() => this.onClickLeaderboardHandler()}>
 													Leaderboard
 												</div>
-												<div styleName ='pointer' onClick = {() => this.onClickUserManagementHandler()}>
+												<div styleName ='pointer item' onClick = {() => this.onClickUserManagementHandler()}>
 													User Management
 												</div>
 											</div>
@@ -88,7 +88,7 @@ class BaseComponent extends React.Component {
 
 					}
 					
-					<div className = 'col-xs-10'>
+					<div styleName = 'mainbar'>
 						{this.props.children}
 					</div>
 
@@ -106,4 +106,4 @@ class BaseComponent extends React.Component {
 	}
 }
 
-export default CSSModules(BaseComponent, BaseStyle);
+export default CSSModules(BaseComponent, BaseStyle,{allowMultiple:true});

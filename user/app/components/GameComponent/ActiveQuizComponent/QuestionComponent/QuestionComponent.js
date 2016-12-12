@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import QuestionComponentStyle from './assets/QuestionComponent.scss';
+import classNames from 'classnames';
 
 
 class QuestionComponent extends React.Component {
@@ -135,14 +136,28 @@ class QuestionComponent extends React.Component {
 
 		clearInterval(this.interval);
 	}
-	
+	getStyleForTimer () {
+
+		const style  = classNames ({
+			"soon" : (this.state.timer <= 5) ? true : false
+
+		});
+		return style;
+	}
 
 	render () {
 		let {questionText, options, isLastQuestionOfLevel} = this.props;
 		let optionsDOM = this.getOptionsDOM(options);
+		let styleForTimer = this.getStyleForTimer();
 		return (
 
 			<div>
+				<div styleName=  'timer'>
+					<div styleName = {styleForTimer} >
+						Timer : {this.state.timer} seconds
+					</div>
+				</div>
+
 				<div styleName = 'question-text'>
 					Q. {questionText}
 
@@ -164,9 +179,6 @@ class QuestionComponent extends React.Component {
 					 	<span className="glyphicon glyphicon-chevron-right"></span>
 					 </button>
 					}
-				</div>
-				<div>
-					Timer : {this.state.timer}
 				</div>
 			</div>
 			);
