@@ -3,7 +3,6 @@ import CSSModules from 'react-css-modules';
 import BaseStyle from './assets/BaseComponent.scss';
 import NotificationSystem from 'react-notification-system';
 import {hashHistory} from 'react-router';
-import urlConstants from '../../constants/urlConstants.js';
 
 
 class BaseComponent extends React.Component {

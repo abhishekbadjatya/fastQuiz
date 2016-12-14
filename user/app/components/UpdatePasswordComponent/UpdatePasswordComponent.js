@@ -1,7 +1,5 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
-import SignUpComponentStyles from './assets/UpdatePasswordComponent.scss';
-import {hashHistory} from 'react-router';
 import _ from 'lodash';
 
 class UpdatePasswordComponent extends React.Component {

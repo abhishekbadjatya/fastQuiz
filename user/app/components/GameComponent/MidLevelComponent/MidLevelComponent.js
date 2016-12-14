@@ -2,7 +2,7 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import MidLevelComponentStyles from './assets/MidLevelComponent.scss';
 import {hashHistory} from 'react-router';
-import _ from 'lodash';
+
 
 import {getPreviousAnswers} from '../../../util/util.js';
 

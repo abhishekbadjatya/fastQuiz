@@ -11,12 +11,9 @@ class EndGameButtonComponent extends React.Component {
 		this.state = {
 			showModal: false
 		};
-		this.close = this.close.bind(this);
 
 	}
-	close () {
-		console.log('here');
-	}
+	
 
 	onClickEndButton () {
 		this.setState({showModal:true});
