@@ -2,6 +2,7 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import LoginStyle from '../LeaderboardComponent/assets/LeaderboardComponent.scss';
 import {hashHistory} from 'react-router';
+import Table from 'react-bootstrap/lib/Table';
 import _ from 'lodash';
 
 
@@ -31,9 +32,9 @@ class LeaderboardComponent extends React.Component {
 		)
 
 		return (
-		<div>
+		<div className = 'col-md-12'>
 			<h1> Leaderboard </h1>
-			<table>
+			<Table striped bordered condensed hover>
 				<thead>
 				  <tr>
 				    <th>Username</th>
@@ -44,7 +45,7 @@ class LeaderboardComponent extends React.Component {
 				<tbody>
 				  {tableContent}
 				</tbody>
-			</table>
+			</Table>
 		</div>
 			);
 		

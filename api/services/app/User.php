@@ -45,18 +45,18 @@ class User extends Model
     }
     public static function signup($usercred)
     {
-        $User = new User;
+        $user = new User;
         $userval=User::where('userName', '=',$usercred['userName'])->get()->toArray();
         if(count($userval)>0)
             return false;
         else
         {
-            $User->emailId=$usercred['emailId'];
-            $User->password=Hash::make($usercred['password']);
-            $User->userName=$usercred['userName'];
-            $User->maxLevelReached=$usercred['maxLevelReached'];
-            $User->maxScore=$usercred['maxScore'];
-            $User->save();
+            $user->emailId=$usercred['emailId'];
+            $user->password=Hash::make($usercred['password']);
+            $user->userName=$usercred['userName'];
+            $user->maxLevelReached=$usercred['maxLevelReached'];
+            $user->maxScore=$usercred['maxScore'];
+            $user->save();
             return true;
         }
 

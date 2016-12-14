@@ -11,7 +11,7 @@ class Options extends Model
     protected $table = 'options';
 
 	public static function getOptionsForQuestions($questions) {
-		$q=join(",",$questions);   
+		//$q=join(",",$questions);   
 		//return $q;
 		return Options::whereIn('questionId',  $questions)->select('optionId', 'optionLabel','questionId')->get()->toArray();
 

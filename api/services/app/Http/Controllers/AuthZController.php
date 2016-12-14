@@ -40,7 +40,6 @@ class AuthZController extends Controller
     public function signup()
     {
         $data = Input::all();
-        $user=trim($data['userName']);
         $data['userName'] = trim($data['userName']);
         //if($user.length<$data['userName'].length)
             //return Response(json_encode([
@@ -65,7 +64,8 @@ class AuthZController extends Controller
 
     public function logout()
     {
-        $value = Session::flush();
+        Session::flush();
+        #$value = Session::flush();
 
     }
 

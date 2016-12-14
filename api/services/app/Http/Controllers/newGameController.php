@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Session;
 
 
-class newGameController extends Controller
+class NewGameController extends Controller
 {
     //
     public function getLevelOne(){

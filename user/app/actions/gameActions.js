@@ -218,7 +218,8 @@ export function submitCurrentLevelAnswers () {
 							flags : {
 								hasQualified: false,
 								gameComponentScreenType: "MID_LEVEL",
-								previousScore: json.score
+								previousScore: json.score,
+								totalNoOfQuestionsInCurrentLevel : json.totalNoOfQuestionsInCurrentLevel
 							}
 						});
 

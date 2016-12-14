@@ -20,7 +20,7 @@ Route::group (['middleware' => 'cors'], function () {
 	Route::get('/authz/logout','AuthZController@logout');
 	Route::get('/getLeaderboard','AuthZController@getLeaderboard');
 	Route::post('/changePassword','AuthZController@changePassword');
-	Route::get('/newGame','newGameController@getLevelOne');
+	Route::get('/newGame','NewGameController@getLevelOne');
 	Route::post('/submitLevel', 'SubmitLevelController@index');
 	Route::post('/endGame', 'EndGameController@index');
 

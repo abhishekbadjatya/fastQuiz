@@ -9,12 +9,12 @@ bash ./setup.sh
 ```
 
 Edit the following configurations according to your system - 
-* `baseUrl` to the location of folder in `api/services/public`  in `url/constants/urlConstants.js`
+* `baseUrl`   in `user/app/constants/urlConstants.js` to `<server_name>/<project_name>/api/services/public`.
 
 * Create a DB. Change  `
 DB_DATABASE,
 DB_USERNAME,
-DB_PASSWORD` in `.env` accordingly.
+DB_PASSWORD` in `.env` accordingly. The file is located at `/api/services`
 
 
 Run the database.sh file for migration and seeding.

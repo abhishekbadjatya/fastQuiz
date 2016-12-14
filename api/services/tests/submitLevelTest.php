@@ -97,7 +97,7 @@ class submitLevelTest extends TestCase
     {
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 8,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
             ],"level" => 1
@@ -125,9 +125,11 @@ class submitLevelTest extends TestCase
     {
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
-        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "1"],
-                                                           ["questionId" => 2,"optionId" => "5"],
-                                                           ["questionId" => 3,"optionId" => "8"]
+        $this->json('POST', '/submitLevel', ['answers' => [["questionId" => 1,"optionId" => "2"],
+                                                           ["questionId" => 2,"optionId" => "6"],
+                                                           ["questionId" => 3,"optionId" => "10"],
+                                                           ["questionId" => 4,"optionId" => "14"],
+                                                           ["questionId" => 5,"optionId" => "16"]
             ],"level" => 1
             ])
              ->seeJson([
@@ -142,10 +144,10 @@ class submitLevelTest extends TestCase
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
         
-        $this->withSession(['score' => 1])->json('POST', '/submitLevel', ['answers' => [["questionId" => 5,"optionId" => "3"],
-                                                           ["questionId" => 6,"optionId" => "6"],
-                                                           ["questionId" => 4,"optionId" => "8"]
-            ],"level" => 2
+        $this->withSession(['score' => 1])->json('POST', '/submitLevel', ['answers' => [["questionId" => 50,"optionId" => "200"],
+                                                           ["questionId" => 49,"optionId" => "196"],
+                                                           ["questionId" => 48,"optionId" => "192"]
+            ],"level" => 10
             ])
              ->seeJson([
                 'isGameOver' => true

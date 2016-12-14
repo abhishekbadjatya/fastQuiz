@@ -2,7 +2,8 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import ActiveQuizComponentStyle from './assets/ActiveQuizComponent.scss';
 import QuestionComponent from './QuestionComponent/QuestionComponent.js';
-
+import EndGameButtonComponent from './EndGameButtonComponent/EndGameButtonComponent.js';
+import _ from 'lodash';
 class ActiveQuizComponent extends React.Component {
 
 	constructor (props) {
@@ -72,14 +73,15 @@ class ActiveQuizComponent extends React.Component {
 				);
 		} else {
 
-			let {status, levels} =  this.props.game;
+			let {status} =  this.props.game;
 			let activeQuestionProps = this.getQuestionProps (this.props);
 			let {selectedOption, nextQuestion, submitCurrentLevelAnswers} = this.props.actions;
 			return (
 			<div>
-				<div styleName = 'level-heading' className = 'col-xs-12 text-left'>
+				<div styleName = 'level-heading' className = 'text-left'>
 					Level {status.currentLevel}
 				</div>
+				<EndGameButtonComponent submitCurrentLevelAnswers = {submitCurrentLevelAnswers}/>
 
 				<div className = 'col-xs-12'>
 

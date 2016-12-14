@@ -61,7 +61,7 @@ class endGameTest extends TestCase
     {
         $payload = ['userName' => 'abhi3', 'password' => 'a'];
         $response = $this->call('POST','/authz/login', $payload );
-        $this->json('POST', '/endGame', ['answers' => [["questionId" => 5,"optionId" => "3"],
+        $this->json('POST', '/endGame', ['answers' => [["questionId" => 8,"optionId" => "3"],
                                                            ["questionId" => 2,"optionId" => "6"],
                                                            ["questionId" => 3,"optionId" => "8"]
             ],"level" => 1

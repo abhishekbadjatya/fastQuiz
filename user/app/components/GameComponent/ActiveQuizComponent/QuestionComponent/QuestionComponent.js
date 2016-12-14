@@ -1,6 +1,7 @@
 import React from 'react';
 import CSSModules from 'react-css-modules';
 import QuestionComponentStyle from './assets/QuestionComponent.scss';
+import classNames from 'classnames';
 
 
 class QuestionComponent extends React.Component {
@@ -12,8 +13,10 @@ class QuestionComponent extends React.Component {
 		this.onNextClickButtonHandler = this.onNextClickButtonHandler.bind(this);
 		this.onSubmitClickButtonHandler = this.onSubmitClickButtonHandler.bind(this);
 		this.state = {
-			'optionSelected' : false
+			'optionSelected' : false,
+			'timer' : 10
 		};
+		this.tick = this.tick.bind(this);
 	}
 	onClickOptionsHandler (e) {
 
@@ -32,7 +35,8 @@ class QuestionComponent extends React.Component {
 
 			this.props.nextQuestion ();
 			this.setState({
-				"optionSelected" : false
+				"optionSelected" : false,
+				timer:10
 
 			});
 
@@ -56,8 +60,10 @@ class QuestionComponent extends React.Component {
 		if (this.state.optionSelected) {
 
 			this.props.submitCurrentLevelAnswers ();
+
 			this.setState({
-				"optionSelected" : false
+				"optionSelected" : false,
+				timer:10
 
 			});
 
@@ -104,14 +110,54 @@ class QuestionComponent extends React.Component {
 			);
 
 	}
-	
+	tick () {
+
+		this.setState({timer: this.state.timer -1});
+		if (this.state.timer <=0) {
+			
+			clearInterval(this.interval);
+			this.setState({timer:10});
+			this.interval = setInterval(this.tick, 1000);
+			
+			if (this.props.isLastQuestionOfLevel) {
+				this.props.submitCurrentLevelAnswers();
+
+			} else {
+				this.props.nextQuestion();
+			}
+
+		}
+	}
+
+	componentDidMount() {
+		this.interval = setInterval(this.tick, 1000);
+	}
+	componentWillUnmount() {
+
+		clearInterval(this.interval);
+	}
+	getStyleForTimer () {
+
+		const style  = classNames ({
+			"soon" : (this.state.timer <= 5) ? true : false
+
+		});
+		return style;
+	}
 
 	render () {
 		let {questionText, options, isLastQuestionOfLevel} = this.props;
 		let optionsDOM = this.getOptionsDOM(options);
+		let styleForTimer = this.getStyleForTimer();
 		return (
 
 			<div>
+				<div styleName=  'timer'>
+					<div styleName = {styleForTimer} >
+						Timer : {this.state.timer} seconds
+					</div>
+				</div>
+
 				<div styleName = 'question-text'>
 					Q. {questionText}
 

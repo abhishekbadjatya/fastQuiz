@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Route, hashHistory, IndexRoute,Router, IndexRedirect} from 'react-router';
+import {Route, hashHistory,Router, IndexRedirect} from 'react-router';
 import {Provider} from 'react-redux';
 import store  from './store/store.js';
 import BaseContainer from './containers/BaseContainer/BaseContainer.js';

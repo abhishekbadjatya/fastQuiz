@@ -2,7 +2,7 @@ import React from 'react';
 import CSSModules from 'react-css-modules';
 import MidLevelComponentStyles from './assets/MidLevelComponent.scss';
 import {hashHistory} from 'react-router';
-import _ from 'lodash';
+
 
 import {getPreviousAnswers} from '../../../util/util.js';
 
@@ -32,14 +32,14 @@ class MidLevelComponent extends React.Component {
 		return previousLevelObject.questions.map ((singleQuestion) => {
 
 			return (
-				<div key = {singleQuestion.questionId}>
+				<div styleName = 'card' key = {singleQuestion.questionId}>
 					<div>
 						{singleQuestion.questionId} : {singleQuestion.questionText}
 
 					</div>
 
 					<div>
-						You Answered : {singleQuestion.chosenOptionText.optionLabel}
+						You Answered : { (singleQuestion.chosenOptionText) ? singleQuestion.chosenOptionText.optionLabel : "Not attempted."}
 
 					</div>
 
@@ -59,7 +59,7 @@ class MidLevelComponent extends React.Component {
 	
 	render () {
 
-		let {hasQualified, previousScore} = this.props.status
+		let {hasQualified, previousScore, totalNoOfQuestionsInCurrentLevel} = this.props.status
 
 		let previousLevelObject = getPreviousAnswers (this.props.levels, this.props.previous);
 		let previousAnswersDOM = this.getView (previousLevelObject);
@@ -74,7 +74,7 @@ class MidLevelComponent extends React.Component {
 						(<div>
 
 							Sorry, you have not qualified.
-							Score {previousScore}
+							Score {previousScore}/{totalNoOfQuestionsInCurrentLevel}
 							<div>
 								<input type = 'button' className = 'btn btn-primary' 
 								onClick = {()=> this.onClickDashboardHandler()}
@@ -86,7 +86,7 @@ class MidLevelComponent extends React.Component {
 						(
 							<div>
 								Congratulations, you have qualified for the next level.
-								Score {previousScore}
+								Score {previousScore}/{totalNoOfQuestionsInCurrentLevel}
 
 
 								<div>
@@ -106,7 +106,10 @@ class MidLevelComponent extends React.Component {
 
 				}
 				<div>
-					Review
+					<div styleName = 'center'>
+						Review
+					</div>
+					
 					<div>
 					{previousAnswersDOM}
 					</div>

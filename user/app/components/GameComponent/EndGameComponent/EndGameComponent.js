@@ -28,14 +28,14 @@ class EndGameComponent extends React.Component {
 		return previousLevelObject.questions.map ((singleQuestion) => {
 
 			return (
-				<div key = {singleQuestion.questionId}>
+				<div styleName = 'card' key = {singleQuestion.questionId}>
 					<div>
 						{singleQuestion.questionId} : {singleQuestion.questionText}
 
 					</div>
 
 					<div>
-						You Answered : {singleQuestion.chosenOptionText.optionLabel}
+					You Answered : { (singleQuestion.chosenOptionText) ? singleQuestion.chosenOptionText.optionLabel : "Not attempted."}
 
 					</div>
 

@@ -1,8 +1,9 @@
 .base-header {
 	border : 1px solid beige;
-	margin-bottom : 40px;
 	padding: 20px;
 	background-color : #cfdff9;
+	z-index: 99;
+
 }
 
 .app-name {
@@ -11,4 +12,34 @@
 }
 .pointer {
 	cursor:pointer;
+}
+.sidebar {
+	background-color : #6989bc;
+	height : 100%;
+	width : 20%;
+	float: left;
+}
+
+.main-app {
+	height: 100%;
+    position: absolute;
+    padding-top: 75px;
+    width:100%;
+}
+
+.mainbar {
+
+	width : 80%;
+	float: left;
+	padding:20px;
+	
+}
+
+.item {
+	font-size : 18px;
+	text-align : center;
+}
+
+.item:hover {
+	background-color:#aeb54c;
 }

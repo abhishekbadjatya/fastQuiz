@@ -64,45 +64,9 @@ class UsersTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'userId' => 7,
-                'userName' => 'sajal',
-                'password' => '$2y$10$f45TBFxwp8BIadBt.U.yIeCqBRzO5z0.McQrfugRZ2vOGnGsL.nvy',
-                'emailId' => 'sample',
-                'maxLevelReached' => 1,
-                'maxScore' => 0,
-            ),
-            6 => 
-            array (
-                'userId' => 8,
-                'userName' => 'sajal1',
-                'password' => '$2y$10$22dfR60BgakYPgyVjw5/t.M2oXF5m64JJ.5sMI5A.Dter5lbGOTH2',
-                'emailId' => 'sample',
-                'maxLevelReached' => 1,
-                'maxScore' => 0,
-            ),
-            7 => 
-            array (
-                'userId' => 9,
-                'userName' => '',
-                'password' => '$2y$10$LNl8w5/Y2LH83dSA.2d8wefNO8kC3KpKnMuH2WvFFNsWqhvjypQsG',
-                'emailId' => 'sample',
-                'maxLevelReached' => 1,
-                'maxScore' => 0,
-            ),
-            8 => 
-            array (
-                'userId' => 10,
-                'userName' => 'sajal2',
-                'password' => '$2y$10$gaBDdqCUWzEc8vacRpoVo.6xD3oE7otMpIwhkXhCvqWC8DEbsxSWS',
-                'emailId' => 'sample',
-                'maxLevelReached' => 1,
-                'maxScore' => 0,
-            ),
-            9 => 
-            array (
-                'userId' => 11,
-                'userName' => 'sajal3',
-                'password' => '$2y$10$DruYczXKbl69Zcf8FTpPZetwzLzne4UurUoKhu6Yo0MKZ0/CNDl0O',
+                'userId' => 6,
+                'userName' => 'abhishek',
+                'password' => '$2y$10$ebp0KbSPHNboL46u8U3sVuFdl.vaTeqGrr3QoJagYAS6L0rNdpCj6',
                 'emailId' => 'sample',
                 'maxLevelReached' => 1,
                 'maxScore' => 0,
